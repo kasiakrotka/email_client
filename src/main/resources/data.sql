@@ -1,0 +1,1 @@
+INSERT INTO MESSAGES VALUES (1,'kasia@gmail.com,','tomek@gmail.com',1,null,null,null,'temacik',null);

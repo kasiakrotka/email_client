@@ -1,0 +1,14 @@
+<div>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let message of messages" (click)="onSelected(message)">
+            <div class="d-flex w-100 justify-content-between row">
+                <div class="col-md">
+                    <p class="sender">{{ message.sender }}</p>
+                </div>
+                <div class="col-md">
+                    <p class="topic mb-1">{{ message.topic }}</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

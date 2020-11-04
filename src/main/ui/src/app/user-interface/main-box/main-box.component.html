@@ -1,0 +1,11 @@
+<div class="row">
+  <div [ngClass]="{'col-sm-5': selected, 'col-sm': !selected}" style="padding: 0 0 0 0;" > 
+    <app-list-of-emails></app-list-of-emails>
+  </div>
+  <div [ngClass]="{'col-sm-7': selected}">
+    <app-mail-view *ngIf="selectedMail" [mail]="selectedMail"></app-mail-view>
+  </div>
+  <div [ngClass]="{'col-sm-7': writing}">
+    <app-mail-form *ngIf="writing"></app-mail-form>
+  </div>
+</div>
