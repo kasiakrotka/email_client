@@ -16,6 +16,7 @@ import { AuthInterceptorService } from './user-interface/shared/auth-interceptor
 import { AuthComponent } from './auth/auth.component';
 import { UserInterfaceComponent } from './user-interface/user-interface.component';
 import { FormsModule } from '@angular/forms';
+import { HttpInterceptorService } from './auth/http-interceptorService';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true},
     InboxService,
     SendService
   ],

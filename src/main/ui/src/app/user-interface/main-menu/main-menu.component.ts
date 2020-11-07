@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 import { SendService } from '../shared/send.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-menu',
@@ -11,7 +13,7 @@ export class MainMenuComponent implements OnInit {
   timeLeft: number = 60;
   interval;
 
-  constructor(private sendService: SendService) { }
+  constructor(private router: Router, private sendService: SendService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.startTimer();
@@ -35,5 +37,10 @@ export class MainMenuComponent implements OnInit {
 
   pauseTimer() {
     clearInterval(this.interval);
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/auth');
   }
 }

@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { MessageModel } from './message.model';
 import { User } from './user.model';
 
 export interface AuthResponseData {
@@ -13,51 +14,35 @@ export interface AuthResponseData {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    user = new Subject<User>();
+    authenticated = false;
+    model: any = {}
 
     constructor(private http: HttpClient) {
 
     }
 
-    signup(email: string, password: string) {
-        return this.http.post<AuthResponseData>('localhost:8080',
-            {
-                email: email,
-                password: password
-            })
-            .pipe(
-                tap(respData => {
-                    const user = new User(
-                        respData.email,
-                        respData.id,
-                        respData.expiresIn
-                    );
-                    this.user.next(user);
-                })
-            );
-    }
+  authenticate(credentials, callback) {
 
-    login(email: string, password: string) {
-        return this.http.post<AuthResponseData>('localhost:8080',
-            {
-                email: email,
-                password: password
-            }).pipe(tap(resData => {
-                this.handleAuth(
-                    resData.email, 
-                    resData.id, 
-                    resData.expiresIn
-                    );
-                }
-            ));
-    }
+    let headers = new HttpHeaders(credentials ? {
+      authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
+    } : {});
 
-    private handleAuth(email: string, id: string, expiresIn: string) {
-        const user = new User(
-            email,
-            id,
-            expiresIn
-        );
-        this.user.next(user);
-    }
+    let url = 'http://localhost:8080/user';
+    this.http.get(url, {headers: headers}).subscribe(response => {
+      if (response['name']) {
+        this.authenticated = true;
+      } else {
+        this.authenticated = false;
+      }
+      return callback && callback();
+    });
+
+  }
+
+  logout() {
+
+      let url = 'http://localhost:8080/logout'
+    this.http.post(url, {}).subscribe(response => {
+        this.authenticated = false;});
+  }
 }

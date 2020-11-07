@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -10,48 +10,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+
   isLoginMode = false;
   error: string = null;
+  credentials = {username: '', password: ''};
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
     this.isLoginMode = false;
   }
 
   ngOnInit(): void {
   }
 
-  onSwitchMode() {
-    this.isLoginMode = !this.isLoginMode;
+  login() {
+    this.authService.authenticate(this.credentials, () => {
+      this.router.navigateByUrl('/ui');
+    });
+    return false;
   }
 
-  onSubmit(form: NgForm) {
-    if (!form.valid) {
-      return;
-    }
-
-    const email = form.value.email;
-    const password = form.value.password;
-
-    let authObs: Observable<AuthResponseData>;
-
-    if (this.isLoginMode) {
-      authObs = this.authService.login(email, password)
-    }
-    else {
-      authObs = this.authService.signup(email, password)
-    }
-
-    authObs.subscribe(
-      responseData => {
-        console.log(responseData);
-        this.router.navigate(['/']);
-      },
-      error => {
-        console.log(error);
-        this.error = 'An error occured!'
-      }
-    );
-    form.reset();
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode;
   }
 
 }
