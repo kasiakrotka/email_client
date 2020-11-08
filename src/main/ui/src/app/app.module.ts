@@ -12,11 +12,10 @@ import { MailFormComponent } from './user-interface/main-box/mail-form/mail-form
 import { ListOfEmailsComponent } from './user-interface/main-box/list-of-emails/list-of-emails.component';
 import { MailViewComponent } from './user-interface/main-box/mail-view/mail-view.component';
 import { SendService } from './user-interface/shared/send.service';
-import { AuthInterceptorService } from './user-interface/shared/auth-interceptor.service';
 import { AuthComponent } from './auth/auth.component';
 import { UserInterfaceComponent } from './user-interface/user-interface.component';
 import { FormsModule } from '@angular/forms';
-import { HttpInterceptorService } from './auth/http-interceptorService';
+import { HttpInterceptorService } from './shared/http-interceptorService';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,7 @@ import { HttpInterceptorService } from './auth/http-interceptorService';
     ListOfEmailsComponent,
     MailViewComponent,
     MainBoxComponent,
-    MailFormComponent, 
+    MailFormComponent,
     AuthComponent, UserInterfaceComponent
   ],
   imports: [

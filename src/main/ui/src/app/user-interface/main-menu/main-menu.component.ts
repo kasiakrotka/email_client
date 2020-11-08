@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/shared/auth.service';
 import { SendService } from '../shared/send.service';
 import {Router} from "@angular/router";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main-menu',
@@ -13,7 +15,7 @@ export class MainMenuComponent implements OnInit {
   timeLeft: number = 60;
   interval;
 
-  constructor(private router: Router, private sendService: SendService, private authService: AuthService) { }
+  constructor(private http: HttpClient, private router: Router, private sendService: SendService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.startTimer();
@@ -40,7 +42,17 @@ export class MainMenuComponent implements OnInit {
   }
 
   onLogout() {
-    this.authService.logout();
-    this.router.navigateByUrl('/auth');
+    let credentials = this.authService.getCredentials();
+    let headers = new HttpHeaders(credentials ? {
+      authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
+    } : {});
+
+    const url = 'http://localhost:8080/logout'
+    this.http.post(url, {headers: headers}).pipe(finalize(() => {
+      this.authService.authenticated = false;
+      this.router.navigateByUrl('/auth');
+    })).subscribe();
   }
+
+  authenticated() { return this.authService.authenticated;}
 }
