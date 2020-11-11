@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { InboxService } from './shared/inbox.service';
-import { SendService } from './shared/send.service';
-import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../shared/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-user-interface',
@@ -13,21 +10,17 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class UserInterfaceComponent implements OnInit {
   title = 'temporary-email';
   isLoggedIn = false;
-  loggedInUser: string = '';
-  greeting = {};
+  private userSub: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private authService: AuthService, private inboxService: InboxService, private sendService: SendService) {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.userSub = this.authService.user.subscribe( user => {
+      this.isLoggedIn = !user ? false: true;
+    });
   }
 
-
-  ngOnInit(): void {
-    this.isLoggedIn = this.authService.isUserLoggedin();
-    this.loggedInUser = this.authService.getLoggedinUser();
-
-    if(!this.isLoggedIn){
-      this.router.navigateByUrl('auth');
-    }
-    this.http.get('http://localhost:8080/resource').subscribe(data => this.greeting = data);
+  ngOnDestroy() {
+     this.userSub.unsubscribe();
   }
-  authenticated() { return this.authService.authenticated; }
 }

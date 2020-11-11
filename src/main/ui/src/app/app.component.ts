@@ -17,7 +17,7 @@ export class AppComponent {
   selectedEmail: Mail;
 
   constructor(private authService: AuthService, private http: HttpClient, private inboxService: InboxService, private sendService: SendService) {
-    this.authService.authenticate(undefined, undefined);
+
   }
 
   ngOnInit(): void {

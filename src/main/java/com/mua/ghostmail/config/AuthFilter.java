@@ -1,32 +1,25 @@
 package com.mua.ghostmail.config;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import com.mua.ghostmail.service.JWTService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-class cors {}
-
-/*
-@EnableWebMvc
-@Configuration
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class CorsFilter implements Filter, WebMvcConfigurer {
-
+public class AuthFilter extends GenericFilterBean {
 
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("GET", "POST","PUT", "DELETE", "OPTIONS");
-    }
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
+        throws IOException, ServletException {
 
-    @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) {
+
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
         System.out.println("WebConfig; "+request.getRequestURI());
@@ -41,7 +34,7 @@ public class CorsFilter implements Filter, WebMvcConfigurer {
         System.out.println("Request Method: "+request.getMethod());
         if (!(request.getMethod().equalsIgnoreCase("OPTIONS"))) {
             try {
-                chain.doFilter(req, res);
+                filterChain.doFilter(req, res);
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -56,15 +49,8 @@ public class CorsFilter implements Filter, WebMvcConfigurer {
             response.setStatus(HttpServletResponse.SC_OK);
         }
 
+        Authentication authentication = JWTService.getAuthentication((HttpServletRequest)request);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        //filterChain.doFilter(request, response);
     }
-
-    @Override
-    public void init(FilterConfig filterConfig) {
-    }
-
-    @Override
-    public void destroy() {
-    }
-
 }
-*/

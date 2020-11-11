@@ -42,17 +42,6 @@ export class MainMenuComponent implements OnInit {
   }
 
   onLogout() {
-    let credentials = this.authService.getCredentials();
-    let headers = new HttpHeaders(credentials ? {
-      authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-    } : {});
 
-    const url = 'http://localhost:8080/logout'
-    this.http.post(url, {headers: headers}).pipe(finalize(() => {
-      this.authService.authenticated = false;
-      this.router.navigateByUrl('/auth');
-    })).subscribe();
   }
-
-  authenticated() { return this.authService.authenticated;}
 }

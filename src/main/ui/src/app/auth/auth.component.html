@@ -1,7 +1,7 @@
 <div class="login-page">
-  <!--<div class="alert alert-danger" [hidden]="!error">
-    There was a problem logging in. Please try again.
-  </div> -->
+  <div class="alert alert-danger" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
     <div class="box row">
         <div class="form col">
             <div class="header">
@@ -10,7 +10,7 @@
                     <p>Podaj swój nowy tymczasowy adres email oraz hasło</p>
                 </div>
             </div>
-            <form name="form" class="auth-form" #authForm="ngForm" (ngSubmit)="login()" novalidate>
+            <form name="form" class="auth-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" novalidate>
                 <div class="form-group">
                     <label for="email">E-Mail:</label>
                     <input type="email" name="email" id="email" class="form-control" [(ngModel)]="credentials.username" #email="ngModel"  required/>
