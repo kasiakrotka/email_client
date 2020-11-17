@@ -4,15 +4,17 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import static java.util.Collections.emptyList;
 
+
 public class JWTService {
 
-    static final long EXPIRATIONTIME = 864_000_00; //24h
+    public static final long EXPIRATIONTIME = 864_000_00; //24h
     static final String SIGNINGKEY = "signingKey";
     static final String BEARER_PREFIX = "Bearer";
 
@@ -22,7 +24,7 @@ public class JWTService {
                 .signWith(SignatureAlgorithm.HS512, SIGNINGKEY)
                 .compact();
         response.addHeader("Authorization", BEARER_PREFIX + " " + JwtToken);
-        response.addHeader("Access-Control-Expose-Headers", "Authorization");
+        response.addHeader("Access-Control-Expose-Headers", "Authorization, endDate, address, startDate, expires");
     }
 
     static public Authentication getAuthentication(HttpServletRequest request) {

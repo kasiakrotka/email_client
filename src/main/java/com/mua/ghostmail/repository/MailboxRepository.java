@@ -15,5 +15,6 @@ public interface MailboxRepository extends CrudRepository<Mailbox, Long> {
     @Query("SELECT m FROM Mailbox m WHERE m.address = :address and m.password= :password")
     Mailbox authUser (@Param("address") String address, @Param("password") String password);
 
+    @Query("SELECT m FROM Mailbox m WHERE m.address = :address")
     Optional<Mailbox> findByAddress(String address);
 }

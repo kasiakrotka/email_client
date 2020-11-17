@@ -19,16 +19,15 @@ public class AuthFilter extends GenericFilterBean {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
         throws IOException, ServletException {
 
-
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
         System.out.println("WebConfig; "+request.getRequestURI());
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With,observe");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, address, endDate, startDate, expires, X-Requested-With, observe");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Expose-Headers", "Authorization");
+        response.setHeader("Access-Control-Expose-Headers", "Authorization, address, endDate, startDate, expires");
         response.addHeader("Access-Control-Expose-Headers", "responseType");
         response.addHeader("Access-Control-Expose-Headers", "observe");
         System.out.println("Request Method: "+request.getMethod());
@@ -48,9 +47,5 @@ public class AuthFilter extends GenericFilterBean {
                     "access-control-request-headers,access-control-request-method,accept,origin,authorization,x-requested-with,responseType,observe");
             response.setStatus(HttpServletResponse.SC_OK);
         }
-
-        Authentication authentication = JWTService.getAuthentication((HttpServletRequest)request);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        //filterChain.doFilter(request, response);
     }
 }

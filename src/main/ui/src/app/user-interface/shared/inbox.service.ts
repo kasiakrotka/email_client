@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Mail } from './mail.model';
-import {map} from 'rxjs/operators';
+import {catchError, exhaustMap, map, take, tap} from 'rxjs/operators';
+import {AuthService} from "../../shared/auth.service";
+import {throwError} from "rxjs";
 
 @Injectable()
 export class InboxService {
@@ -11,7 +13,7 @@ export class InboxService {
     fetchedMail : Mail[] = []
     error: any;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private authService: AuthService) {
     }
 
 
@@ -26,6 +28,13 @@ export class InboxService {
 
     fetchMessages() {
         this.isFetching = true;
+      let url = "http://localhost:8080/resources";
+      return this.http.post<any>(url, {observe: 'response'}).pipe(
+        catchError(this.handleError) ,
+        tap(response => {
+          console.log(response);
+        }));
+        /*
         this.http.get<Mail>('https://ghostmail-spring.firebaseio.com/send.json')
         .pipe(
             map(responseData => {
@@ -43,10 +52,26 @@ export class InboxService {
             this.error = error.message;
             console.log(error);
         });
-        //mozna zrobić tak ze ta metoda zwraca observable a w kontrolerze 
-        //wykorzystujacym serwis możemy zasubskrybować zwracaną observable 
-        //i prawdopodobnie tak zrobie jak juz bede pobierać jakieś dane xD  
+        //mozna zrobić tak ze ta metoda zwraca observable a w kontrolerze
+        //wykorzystujacym serwis możemy zasubskrybować zwracaną observable
+        //i prawdopodobnie tak zrobie jak juz bede pobierać jakieś dane xD
+         */
     }
+
+  private handleError(errorResp: HttpErrorResponse) {
+
+    let errorMessage = errorResp.error.message;
+
+    switch(errorMessage) {
+      case 'EMAIL_EXISTS':
+        errorMessage = "Ten adres email jest już zajęty.";
+        break;
+      case 'ERROR_AUTH':
+        errorMessage = "Niepoprawny email lub hasło";
+        break;
+    }
+    return throwError(errorMessage);
+  }
 
     deleteMessages(mailArray: Mail[]){
         //this.http.delete();

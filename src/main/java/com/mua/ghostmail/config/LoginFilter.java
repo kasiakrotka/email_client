@@ -1,12 +1,16 @@
 package com.mua.ghostmail.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mua.ghostmail.model.CustomUserDetails;
 import com.mua.ghostmail.model.UserCredentials;
 import com.mua.ghostmail.service.JWTService;
+import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -38,8 +42,27 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res,
                                             FilterChain chain, Authentication auth) {
-       JWTService.addJWTToken(res, auth.getName());
 
+        CustomUserDetails principal = (CustomUserDetails) auth.getPrincipal();
+        String username = "";
+        String endDate = "";
+        String startDate = "";
+
+        if(principal instanceof CustomUserDetails) {
+            username = (principal).getUsername();
+            endDate = (principal).getEndDateAsString();
+            startDate = (principal).getStartDateAsString();
+        }
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With,observe, address, endDate, expires");
+
+        res.addHeader("Content-Type", "application/json");
+        res.addHeader("expires", Long.toString(JWTService.EXPIRATIONTIME));
+        res.addHeader("address", username);
+        res.addHeader("endDate", endDate);
+        res.addHeader("startDate", startDate);
+        JWTService.addJWTToken(res, auth.getName());
 
     }
 

@@ -1,24 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { AuthService } from 'src/app/shared/auth.service';
 import { SendService } from '../shared/send.service';
 import {Router} from "@angular/router";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import { finalize } from 'rxjs/operators';
+import {HttpClient} from "@angular/common/http";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-main-menu',
   templateUrl: './main-menu.component.html',
   styleUrls: ['./main-menu.component.css']
 })
-export class MainMenuComponent implements OnInit {
+export class MainMenuComponent implements OnInit, OnDestroy{
 
+  private userSub: Subscription;
   timeLeft: number = 60;
   interval;
 
   constructor(private http: HttpClient, private router: Router, private sendService: SendService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.user.subscribe(user => {
+
+    });
     this.startTimer();
+  }
+
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
   }
 
   onSend()
