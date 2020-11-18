@@ -1,7 +1,6 @@
-package com.mua.ghostmail.service;
+package com.mua.ghostmail.security;
 
 import com.mua.ghostmail.entity.Mailbox;
-import com.mua.ghostmail.model.CustomUserDetails;
 import com.mua.ghostmail.repository.MailboxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

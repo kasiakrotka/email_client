@@ -1,6 +1,6 @@
-package com.mua.ghostmail.config;
+package com.mua.ghostmail.security;
 
-import com.mua.ghostmail.service.JWTService;
+import com.mua.ghostmail.security.JWTService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;

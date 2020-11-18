@@ -1,4 +1,4 @@
-package com.mua.ghostmail.service;
+package com.mua.ghostmail.security;
 
 import org.springframework.stereotype.Service;
 

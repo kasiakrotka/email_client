@@ -2,7 +2,7 @@ package com.mua.ghostmail.controller;
 
 import com.mua.ghostmail.entity.Mailbox;
 import com.mua.ghostmail.exception.UserAlreadyExistsException;
-import com.mua.ghostmail.service.SecurityService;
+import com.mua.ghostmail.security.SecurityService;
 import com.mua.ghostmail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

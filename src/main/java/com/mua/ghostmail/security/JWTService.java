@@ -1,4 +1,4 @@
-package com.mua.ghostmail.service;
+package com.mua.ghostmail.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,6 +29,7 @@ public class JWTService {
 
     static public Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
+        System.out.println(token);
         if (token != null) {
             String user = Jwts.parser()
                     .setSigningKey(SIGNINGKEY)

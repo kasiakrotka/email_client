@@ -1,16 +1,13 @@
-package com.mua.ghostmail.config;
+package com.mua.ghostmail.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mua.ghostmail.model.CustomUserDetails;
+import com.mua.ghostmail.security.CustomUserDetails;
 import com.mua.ghostmail.model.UserCredentials;
-import com.mua.ghostmail.service.JWTService;
-import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
+import com.mua.ghostmail.security.JWTService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -44,6 +41,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
                                             FilterChain chain, Authentication auth) {
 
         CustomUserDetails principal = (CustomUserDetails) auth.getPrincipal();
+        System.out.println(((CustomUserDetails) auth.getPrincipal()).getUsername() + " succesfull");
         String username = "";
         String endDate = "";
         String startDate = "";

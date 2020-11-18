@@ -1,5 +1,8 @@
 package com.mua.ghostmail.config;
-import com.mua.ghostmail.service.CustomUserDetailsService;
+import com.mua.ghostmail.security.AuthFilter;
+import com.mua.ghostmail.security.CustomUserDetailsService;
+import com.mua.ghostmail.security.JWTFilter;
+import com.mua.ghostmail.security.LoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new LoginFilter("/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new AuthFilter(),
+                        UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JWTFilter(),
                         UsernamePasswordAuthenticationFilter.class);
     }
 

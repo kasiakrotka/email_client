@@ -1,4 +1,4 @@
-package com.mua.ghostmail.model;
+package com.mua.ghostmail.security;
 
 import com.mua.ghostmail.entity.Mailbox;
 import org.springframework.security.core.GrantedAuthority;

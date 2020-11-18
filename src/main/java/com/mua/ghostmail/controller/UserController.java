@@ -1,7 +1,7 @@
 package com.mua.ghostmail.controller;
 
 import com.mua.ghostmail.entity.Mailbox;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,8 @@ public class UserController {
 
     @PostMapping
     public Object registration(@RequestBody Mailbox mailbox) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getPrincipal();
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String principal = (String) securityContext.getAuthentication().getPrincipal();
+        return principal;
     }
 }
