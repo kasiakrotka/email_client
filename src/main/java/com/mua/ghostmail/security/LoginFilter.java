@@ -60,8 +60,15 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
         res.addHeader("address", username);
         res.addHeader("endDate", endDate);
         res.addHeader("startDate", startDate);
-        JWTService.addJWTToken(res, auth.getName());
 
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            res.getWriter().write( objectMapper.writeValueAsString(principal));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JWTService.addJWTToken(res, auth.getName());
     }
 
 }

@@ -7,7 +7,7 @@
             <button class="main-menu-button">ODEBRANE</button>
         </div>
         <div class="row">
-            <button class="main-menu-button">USUŃ ADRES</button>
+            <button class="main-menu-button" (click)="onDelete()">USUŃ ADRES</button>
         </div>
         <div class="row">
             <button class="main-menu-button" (click)="onSend()">UTWÓRZ WIADOMOŚĆ</button>
@@ -24,7 +24,8 @@
                 </svg>
             </div>
             <div class="row counter-text">
-                <p class="">Pozostały czas: {{timeLeft}}</p>
+              <p>Pozostały czas: </p>
+              <p class="">{{hours}}:{{minutes}}:{{seconds}}</p>
             </div>
         </div>
     </div>

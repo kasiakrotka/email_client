@@ -51,12 +51,13 @@ public class CustomUserDetails extends User{
     }
 
     public String getEndDateAsString() {
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+        System.out.println("end date in json when login: "+ft);
         return ft.format(this.endDate);
     }
 
     public String getStartDateAsString() {
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
         return ft.format(this.startDate);
     }
 }

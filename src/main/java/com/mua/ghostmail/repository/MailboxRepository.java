@@ -17,4 +17,7 @@ public interface MailboxRepository extends CrudRepository<Mailbox, Long> {
 
     @Query("SELECT m FROM Mailbox m WHERE m.address = :address")
     Optional<Mailbox> findByAddress(String address);
+
+    @Query("DELETE FROM Mailbox m WHERE m.address = :address")
+    void deleteByUsername(String address);
 }

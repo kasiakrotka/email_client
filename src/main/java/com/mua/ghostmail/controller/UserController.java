@@ -12,7 +12,7 @@ public class UserController {
 
 
     @PostMapping
-    public Object registration(@RequestBody Mailbox mailbox) {
+    public Object resources(@RequestBody Mailbox mailbox) {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String principal = (String) securityContext.getAuthentication().getPrincipal();
         return principal;

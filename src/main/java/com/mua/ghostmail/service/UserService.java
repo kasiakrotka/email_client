@@ -8,4 +8,6 @@ public interface UserService {
     void save(Mailbox mailbox);
 
     Optional<Mailbox> findByUsername(String username);
+
+    void deleteUser(Mailbox mailbox);
 }

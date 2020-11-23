@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import {DOCUMENT_TOKEN_NAME} from "@angular/core/schematics/migrations/move-document/document_import_visitor";
 import {User} from "./user.model";
 
-const TOKEN_KEY = 'auth-token';
-const USER_KEY = 'auth-user';
+const TOKEN_KEY =  "TOKEN_KEY";
+const USER_KEY = "USER_KEY";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenStorageService {
 
-  constructor() { }
+  constructor() {
+    sessionStorage.clear();
+  }
 
   signOut() {
     sessionStorage.clear();
@@ -28,6 +29,7 @@ export class TokenStorageService {
   public saveUser(user: User) {
     sessionStorage.removeItem(USER_KEY);
     sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    console.log("User key: "+USER_KEY);
   }
 
   public getUser() {

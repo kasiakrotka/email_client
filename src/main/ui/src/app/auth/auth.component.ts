@@ -38,26 +38,36 @@ export class AuthComponent implements OnInit {
   onSubmit(form: NgForm) {
     //if(!form.valid)
      // return;
-
-    let authObs: Observable<any>;
+    let username = this.credentials.username;
+    let password = this.credentials.password;
 
     if(this.isLoginMode) {
-      authObs = this.authService.login(this.credentials.username, this.credentials.password);
+      this.login(username, password);
     }
     else {
-      authObs = this.authService.signup(this.credentials.username, this.credentials.password, this.chosenTime);
+      let authObs = this.authService.signup(username, password, this.chosenTime);
+      authObs.subscribe(response => {
+        console.log(username)
+        this.login(username, password);
+      }, errorMessage => {
+        console.log(errorMessage);
+        this.error = errorMessage;
+      });
     }
+    form.reset();
+  }
 
-    authObs.subscribe( response => {
+  private login(username: string, password: string) {
+    let loginObs: Observable<any>;
+    loginObs = this.authService.login(username, password);
+    loginObs.subscribe( response => {
       console.log(response);
       this.isLoggedIn = true;
       this.router.navigate(['/ui']);
-
     }, errorMessage => {
       console.log(errorMessage);
       this.error = errorMessage;
     });
-    form.reset();
   }
 
   changeWebsite(e) {

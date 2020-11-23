@@ -9,6 +9,7 @@ import {TokenStorageService} from "./token-storage.service";
 export class AuthService {
 
   user = new BehaviorSubject<User>(null);
+  user_data = this.user.asObservable();
   httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
 
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) {}
@@ -24,7 +25,6 @@ export class AuthService {
       }, {observe: "response"},).pipe(
         catchError(this.handleError), tap(response => {
         console.log(response);
-        this.login(email, password);
         })
     );
   }
@@ -53,8 +53,10 @@ export class AuthService {
   }
 
   private handleAuth(auth: String, address: String, startDate: String, endDate: String, expirationDate: Date) {
+    console.log(endDate);
     const user = new User(auth, address, startDate, endDate, expirationDate);
     this.user.next(user);
+
     return user;
   }
 
@@ -75,5 +77,15 @@ export class AuthService {
 
   getToken() {
     return this.tokenStorage.getToken();
+  }
+
+  logout() {
+    let url = "http://localhost:8080/logout";
+    return this.http.post<any>(url, null);
+  }
+
+  deleteAccount(user: User) {
+    let url = "http://localhost:8080/delete";
+    return this.http.post<any>(url, null);
   }
 }

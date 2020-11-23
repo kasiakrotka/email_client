@@ -8,19 +8,20 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Instant;
 import java.util.Date;
 import static java.util.Collections.emptyList;
 
 
 public class JWTService {
 
-    public static final long EXPIRATIONTIME = 864_000_00; //24h
+    public static final long EXPIRATIONTIME = 86400000; //24h
     static final String SIGNINGKEY = "signingKey";
     static final String BEARER_PREFIX = "Bearer";
 
     static public void addJWTToken(HttpServletResponse response, String username) {
         String JwtToken = Jwts.builder().setSubject(username)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
+                .setExpiration(new Date(Date.from(Instant.now()).getTime() + EXPIRATIONTIME))
                 .signWith(SignatureAlgorithm.HS512, SIGNINGKEY)
                 .compact();
         response.addHeader("Authorization", BEARER_PREFIX + " " + JwtToken);

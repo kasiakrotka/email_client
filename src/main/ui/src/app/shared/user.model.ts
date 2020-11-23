@@ -38,6 +38,12 @@ public setStartDate(timestamp: String) {
   this.startDate = newDate;
 }
 
+public getLeftTime(){
+    console.log("Current date: "+new Date());
+    console.log("Expire date: "+ this.endDate);
+  var time = (this.endDate.getTime() - new Date().getTime())/1000;
+  return time;
+}
 public getAddress() {
   return this.address;
 }

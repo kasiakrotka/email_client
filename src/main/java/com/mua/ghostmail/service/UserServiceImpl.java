@@ -32,4 +32,10 @@ public class UserServiceImpl implements UserService{
         Optional<Mailbox> mailbox = mailboxRepository.findByAddress(username);
         return mailbox;
     }
+
+    @Override
+    public void deleteUser(Mailbox mailbox)
+    {
+            mailboxRepository.delete(mailbox);
+    }
 }
