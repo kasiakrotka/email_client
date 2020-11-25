@@ -1,10 +1,12 @@
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-2">
-        <app-main-menu></app-main-menu>
-      </div>
-      <div class="col-sm-10">
-        <app-main-box></app-main-box>
-      </div>
+<div class="container-fluid ui">
+  <aside>
+    <div class="navbar-collapse" id="sidebar">
+      <app-main-menu></app-main-menu>
     </div>
+  </aside>
+  <section id="main-content">
+    <section class="wrapper">
+      <app-main-box></app-main-box>
+    </section>
+  </section>
 </div>

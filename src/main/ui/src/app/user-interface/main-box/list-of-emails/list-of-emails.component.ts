@@ -17,12 +17,13 @@ export class ListOfEmailsComponent implements OnInit {
   ngOnInit(): void {
     let inboxObs: Observable<any>;
     this.messages = this.inboxService.getMessages();
+    /*
     inboxObs = this.inboxService.fetchMessages();
     inboxObs.subscribe( response => {
       console.log(response);
     }, errorMessage => {
       console.log(errorMessage);
-    });
+    });*/
   }
 
   onSelected(message: Mail): void {

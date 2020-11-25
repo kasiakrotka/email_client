@@ -14,10 +14,15 @@ import { MailViewComponent } from './user-interface/main-box/mail-view/mail-view
 import { SendService } from './user-interface/shared/send.service';
 import { AuthComponent } from './auth/auth.component';
 import { UserInterfaceComponent } from './user-interface/user-interface.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpInterceptorService } from './shared/http-interceptorService';
 import {AuthInterceptor} from "./shared/auth-interceptor";
-
+import {MatDialogModule} from "@angular/material/dialog";
+import { MaterialDialogComponent } from './user-interface/material-dialog/material-dialog.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatButtonModule} from "@angular/material/button";
+import {MaterialModule} from "./material.module";
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,13 +31,17 @@ import {AuthInterceptor} from "./shared/auth-interceptor";
     MailViewComponent,
     MainBoxComponent,
     MailFormComponent,
-    AuthComponent, UserInterfaceComponent
+    AuthComponent, UserInterfaceComponent, MaterialDialogComponent
   ],
   imports: [
     BrowserModule,
+    MaterialModule,
+    BrowserAnimationsModule,
     FormsModule,
+    MatDialogModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true},
@@ -40,6 +49,7 @@ import {AuthInterceptor} from "./shared/auth-interceptor";
     InboxService,
     SendService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [MaterialDialogComponent]
 })
 export class AppModule { }

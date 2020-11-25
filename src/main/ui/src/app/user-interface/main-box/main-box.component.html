@@ -1,5 +1,5 @@
 <div class="row">
-  <div [ngClass]="{'col-sm-5': selected, 'col-sm': !selected}" style="padding: 0 0 0 0;" > 
+  <div [ngClass]="{'col-sm-5': selected || writing, 'col-sm': !selected && !writing}" >
     <app-list-of-emails></app-list-of-emails>
   </div>
   <div [ngClass]="{'col-sm-7': selected}">

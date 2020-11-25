@@ -1,14 +1,15 @@
-<div>
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let message of messages" (click)="onSelected(message)">
-            <div class="d-flex w-100 justify-content-between row">
-                <div class="col-md">
-                    <p class="sender">{{ message.sender }}</p>
-                </div>
-                <div class="col-md">
-                    <p class="topic mb-1">{{ message.topic }}</p>
-                </div>
-            </div>
-        </li>
-    </ul>
+<div class="row inbox">
+  <table class="table table-hover">
+    <tbody>
+    <tr *ngFor="let message of messages">
+      <td class="small-cell">
+        <input type="checkbox" class="mail-checkbox">
+      </td>
+      <td [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)">{{ message.sender }}</td>
+      <td [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)">{{ message.topic }}</td>
+      <td [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)"> {{ message.date }}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+

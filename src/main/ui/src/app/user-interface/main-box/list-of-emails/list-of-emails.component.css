@@ -1,0 +1,16 @@
+.inbox {
+  overflow-y: scroll;
+  height: 80%;
+}
+
+.address {
+  text-overflow: ellipsis;
+}
+
+.topic {
+  text-overflow: ellipsis;
+}
+
+.new-message {
+  font-weight: bold;
+}

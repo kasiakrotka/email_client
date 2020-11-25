@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {Subscription} from "rxjs";
 import {TokenStorageService} from "../../shared/token-storage.service";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {MaterialDialogComponent} from "../material-dialog/material-dialog.component";
 
 @Component({
   selector: 'app-main-menu',
@@ -20,12 +22,13 @@ export class MainMenuComponent implements OnInit{
   seconds: number =0;
   interval;
 
-  constructor(private http: HttpClient, private tokenService: TokenStorageService, private router: Router, private sendService: SendService, private authService: AuthService) { }
+  constructor(private dialog: MatDialog, private http: HttpClient, private tokenService: TokenStorageService, private router: Router, private sendService: SendService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.user_data.subscribe(user => this.loggedUser = user);
     this.loggedUser = this.loggedUser;
-    this.timeLeft = this.loggedUser.getLeftTime();
+    if(this.loggedUser != null)
+      this.timeLeft = this.loggedUser.getLeftTime();
     this.updateTimer();
     this.startTimer();
   }
@@ -71,5 +74,24 @@ export class MainMenuComponent implements OnInit{
     })
 
     this.onLogout();
+  }
+
+  openDialog(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      id: 1,
+      description: 'Czy na pewno chcesz usunąć konto?'
+    }
+
+    const dialogRef = this.dialog.open(MaterialDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe( data => {
+      if(data == true)
+      {
+        this.onDelete();
+      }
+    })
   }
 }
