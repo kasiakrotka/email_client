@@ -8,7 +8,7 @@
     <button class="main-menu-button">ODEBRANE</button>
   </li>
   <li>
-    <button class="main-menu-button" (click)="openDialog()">USUŃ ADRES</button>
+    <button class="main-menu-button" (click)="onDelete()">USUŃ ADRES</button>
   </li>
   <li>
     <button class="main-menu-button" (click)="onSend()">NOWA WIADOMOŚĆ</button>
@@ -31,4 +31,5 @@
     <p>Pozostały czas: </p>
     <p class="">{{hours}}:{{minutes}}:{{seconds}}</p>
   </div>
+  <button class="main-menu-button" style="text-align: center; font-size: 16px; font-weight: bold" (click)="onAddTime()">+</button>
 </div>

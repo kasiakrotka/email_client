@@ -28,8 +28,9 @@ public setEndDate(timestamp: String){
     let newDate = new Date(dateString);
     this.endDate = newDate;
     //"yyyy-MM-dd hh:mm:ss");
-    //0123456789012345678
+    // 0123456789012345678
 }
+
 
 public setStartDate(timestamp: String) {
   let dateString = timestamp.toString();
@@ -51,4 +52,7 @@ public setAddress(address: String) {
   this.address = address;
 }
 
+  setEndDateWithDate(newdate: Date) {
+    this.endDate = newdate;
+  }
 }

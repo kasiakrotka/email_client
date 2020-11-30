@@ -1,4 +1,4 @@
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Subject, throwError} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
@@ -53,7 +53,6 @@ export class AuthService {
   }
 
   private handleAuth(auth: String, address: String, startDate: String, endDate: String, expirationDate: Date) {
-    console.log(endDate);
     const user = new User(auth, address, startDate, endDate, expirationDate);
     this.user.next(user);
 
@@ -87,5 +86,25 @@ export class AuthService {
   deleteAccount(user: User) {
     let url = "http://localhost:8080/delete";
     return this.http.post<any>(url, null);
+  }
+
+  addTimeToAccount(user: User, hours) {
+
+    let url = "http://localhost:8080/addtime";
+    return this.http.post<any>(url, hours, {observe:'response'}).pipe(
+      catchError(this.handleError) ,
+      tap(response => {
+        let newdate: Date;
+        newdate = new Date(response.body);
+        this.updateEndDate(newdate);
+      })
+    );
+  }
+
+  updateEndDate(newdate: Date) {
+    let user = this.user.getValue();
+    user.setEndDateWithDate(newdate);
+    this.user.next(user);
+    this.tokenStorage.saveUser(user);
   }
 }

@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
 
-    @PostMapping
-    public Object resources(@RequestBody Mailbox mailbox) {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        String principal = (String) securityContext.getAuthentication().getPrincipal();
-        return principal;
+    @GetMapping
+    public String resources() {
+        String test = "Authorization successful";
+        return test;
     }
 }

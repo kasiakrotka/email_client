@@ -1,11 +1,14 @@
 package com.mua.ghostmail.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mua.ghostmail.entity.Mailbox;
 import com.mua.ghostmail.exception.UserAlreadyExistsException;
 import com.mua.ghostmail.model.RegisterForm;
+import com.mua.ghostmail.security.CustomUserDetails;
 import com.mua.ghostmail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,25 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @PostMapping("/addtime")
+    public ResponseEntity addTimeToAccount(@RequestBody String body){
+
+        System.out.println(body);
+        Date result = null;
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String username = securityContext.getAuthentication().getPrincipal().toString();
+        Mailbox mailbox = userService.findByUsername(username).orElse(null);
+        if(mailbox != null) {
+            result = userService.updateEndDate(mailbox, Integer.parseInt(body));
+            System.out.println(result);
+        }
+        if(result != null){
+            return ResponseEntity.ok().body(result.getTime());
+        }
+        else
+            return ResponseEntity.badRequest().build();
+    }
 
     @PostMapping("/delete")
     public ResponseEntity deleteAccount(){
@@ -49,6 +71,7 @@ public class AuthController {
         if (!userService.findByUsername(form.getAddress()).isEmpty()) {
             throw new UserAlreadyExistsException();
         } else {
+            System.out.println(form.getAddress());
             Mailbox mailbox = new Mailbox();
             mailbox.setAddress(form.getAddress());
             mailbox.setPassword(form.getPassword());

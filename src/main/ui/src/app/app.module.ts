@@ -18,11 +18,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpInterceptorService } from './shared/http-interceptorService';
 import {AuthInterceptor} from "./shared/auth-interceptor";
 import {MatDialogModule} from "@angular/material/dialog";
-import { MaterialDialogComponent } from './user-interface/material-dialog/material-dialog.component';
+import { ConfirmDialogComponent } from './user-interface/confirm-dialog/confirm-dialog.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MaterialModule} from "./material.module";
+import {DataDialogComponent} from "./user-interface/data-dialog/data-dialog.component";
+import {InfoDialogComponent} from "./user-interface/info-dialog/info-dialog.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,7 @@ import {MaterialModule} from "./material.module";
     MailViewComponent,
     MainBoxComponent,
     MailFormComponent,
-    AuthComponent, UserInterfaceComponent, MaterialDialogComponent
+    AuthComponent, UserInterfaceComponent, ConfirmDialogComponent, DataDialogComponent, InfoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,6 @@ import {MaterialModule} from "./material.module";
     SendService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [MaterialDialogComponent]
+  entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule { }

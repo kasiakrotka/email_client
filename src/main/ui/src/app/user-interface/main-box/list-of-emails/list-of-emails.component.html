@@ -1,13 +1,13 @@
-<div class="row inbox">
-  <table class="table table-hover">
+<div class="inbox-wrap scrollbar-primary">
+  <table class=" force-overflow table table-hover table-inbox">
     <tbody>
     <tr *ngFor="let message of messages">
       <td class="small-cell">
         <input type="checkbox" class="mail-checkbox">
       </td>
-      <td [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)">{{ message.sender }}</td>
+      <td class="td-address" [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)">{{ message.sender }}</td>
       <td [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)">{{ message.topic }}</td>
-      <td [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)"> {{ message.date }}</td>
+      <td class="td-date" [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)"> {{ message.date }}</td>
     </tr>
     </tbody>
   </table>

@@ -1,6 +1,7 @@
 .ui {
-  background-color: darkseagreen;
+  background-color: #f6f6f6;
   width: 100%;
+  height: 100vh;
 }
 
 #sidebar {
@@ -19,11 +20,10 @@
 #main-content {
   left: 0px;
   margin-left: 258px;
-  background-color: blue;
+  height: 100%;
 }
 
 .wrapper {
-  background-color: aqua;
   display: inline-block;
   margin-top: 50px;
   padding: 0px 15px 15px;
@@ -35,7 +35,6 @@
 }
 
 .grid {
-  background-color: aqua;
   position: relative;
   width: 100%;
   color: whitesmoke;

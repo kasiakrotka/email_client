@@ -1,16 +1,53 @@
-.inbox {
-  overflow-y: scroll;
+.inbox-wrap {
   height: 80%;
+  width: 100%;
+  overflow-y: scroll;
 }
 
-.address {
+table.table-inbox {
+  width: 100%;
+  table-layout: fixed;
+}
+
+td {
+  overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.topic {
+td.td-date {
+ text-align: right;
+  width: 100px;
+}
+
+td.small-cell {
+  width: 25px;
+}
+td.td-address {
+  text-overflow: ellipsis;
+  width: 30%;
+
+}
+
+td.topic {
   text-overflow: ellipsis;
 }
 
 .new-message {
   font-weight: bold;
+}
+
+.scrollbar-primary::-webkit-scrollbar {
+  width: 10px;
+  background-color: #dedede; }
+
+.scrollbar-primary::-webkit-scrollbar-thumb {
+  border-radius: 1px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #cfcfcf; }
+
+.scrollbar-primary {
+  scrollbar-color: #cfcfcf #dedede;
 }

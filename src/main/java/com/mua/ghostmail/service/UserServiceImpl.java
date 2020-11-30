@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -37,5 +39,29 @@ public class UserServiceImpl implements UserService{
     public void deleteUser(Mailbox mailbox)
     {
             mailboxRepository.delete(mailbox);
+    }
+
+    @Override
+    public Date updateEndDate(Mailbox mailbox, int hours) {
+
+        Date newDate = null;
+        Mailbox updatedMailbox = countDate(mailbox, hours);
+        int result = mailboxRepository.updateEndDate(updatedMailbox.getAddress(), updatedMailbox.getEndDate());
+
+        if(result > 0){
+            newDate = updatedMailbox.getEndDate();
+           return newDate;
+        }
+        return newDate;
+    }
+
+    private Mailbox countDate(Mailbox mailbox, int hours){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(mailbox.getEndDate());
+        calendar.add(Calendar.HOUR_OF_DAY, hours);
+        mailbox.setEndDate(calendar.getTime());
+
+        return mailbox;
     }
 }

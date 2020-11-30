@@ -6,7 +6,10 @@ import {HttpClient} from "@angular/common/http";
 import {Subscription} from "rxjs";
 import {TokenStorageService} from "../../shared/token-storage.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {MaterialDialogComponent} from "../material-dialog/material-dialog.component";
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {DataDialogComponent} from "../data-dialog/data-dialog.component";
+import {newArray} from "@angular/compiler/src/util";
+import {InfoDialogComponent} from "../info-dialog/info-dialog.component";
 
 @Component({
   selector: 'app-main-menu',
@@ -32,6 +35,8 @@ export class MainMenuComponent implements OnInit{
     this.updateTimer();
     this.startTimer();
   }
+
+
 
   onSend()
   {
@@ -68,7 +73,7 @@ export class MainMenuComponent implements OnInit{
     });
   }
 
-  onDelete() {
+  DeleteAccount() {
     this.authService.deleteAccount(this.loggedUser).subscribe( response => {
       console.log(response);
     })
@@ -76,7 +81,7 @@ export class MainMenuComponent implements OnInit{
     this.onLogout();
   }
 
-  openDialog(){
+  onDelete(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -86,12 +91,58 @@ export class MainMenuComponent implements OnInit{
       description: 'Czy na pewno chcesz usunąć konto?'
     }
 
-    const dialogRef = this.dialog.open(MaterialDialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe( data => {
       if(data == true)
       {
-        this.onDelete();
+        this.DeleteAccount();
       }
     })
+  }
+
+  onAddTime() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      id: 1,
+      description: 'Podaj liczbę godzin o które chcesz przedłużyć aktywność konta: '
+    }
+
+    const dialogRef = this.dialog.open(DataDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe( data => {
+      if(data != null)
+      {
+        let hours: number = data;
+        this.AddTimeToAccount(hours);
+      }
+    })
+  }
+
+  AddTimeToAccount(hours) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    this.authService.addTimeToAccount(this.loggedUser, hours).subscribe( response => {
+      this.authService.user_data.subscribe(user => this.loggedUser = user);
+      this.loggedUser = this.loggedUser;
+      if(this.loggedUser != null)
+        this.timeLeft = this.loggedUser.getLeftTime();
+      this.updateTimer();
+      this.startTimer();
+      dialogConfig.data = {
+        id: 2,
+        description: 'Przedłużenie ważności konta powiodło się'
+      }
+      const dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe( data => {});
+    }, errorMessage => {
+       dialogConfig.data = {
+        id: 2,
+        description: errorMessage
+      }
+      const dialogRef = this.dialog.open(InfoDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe( data => {});
+    });
   }
 }

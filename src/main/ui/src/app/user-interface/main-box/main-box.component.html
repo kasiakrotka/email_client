@@ -1,11 +1,11 @@
 <div class="row">
-  <div [ngClass]="{'col-sm-5': selected || writing, 'col-sm': !selected && !writing}" >
-    <app-list-of-emails></app-list-of-emails>
+  <div class="no-padding"  style="width: 100%" [ngClass]="{'col-sm-5': selected || writing, 'col-sm': !selected && !writing}">
+    <app-list-of-emails [trigger]="selected"></app-list-of-emails>
   </div>
-  <div [ngClass]="{'col-sm-7': selected}">
+  <div class="no-padding" [ngClass]="{'col-sm-7': selected}">
     <app-mail-view *ngIf="selectedMail" [mail]="selectedMail"></app-mail-view>
   </div>
-  <div [ngClass]="{'col-sm-7': writing}">
-    <app-mail-form *ngIf="writing"></app-mail-form>
+  <div class="no-padding" [ngClass]="{'col-sm-7': writing}" >
+    <app-mail-form *ngIf="writing" ></app-mail-form>
   </div>
 </div>

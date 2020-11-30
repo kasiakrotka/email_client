@@ -4,10 +4,10 @@ import {MainMenuComponent} from "../main-menu/main-menu.component";
 
 @Component({
   selector: 'app-material-dialog',
-  templateUrl: './material-dialog.component.html',
-  styleUrls: ['./material-dialog.component.css']
+  templateUrl: './info-dialog.component.html',
+  styleUrls: ['./info-dialog.component.css']
 })
-export class MaterialDialogComponent implements OnInit {
+export class InfoDialogComponent implements OnInit {
   description = "Czy na pewno chcesz usunąć konto?"
 
   constructor(private dialogRef: MatDialogRef<MainMenuComponent>, @Inject(MAT_DIALOG_DATA) data) {

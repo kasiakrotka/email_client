@@ -3,6 +3,7 @@ import { InboxService } from '../shared/inbox.service';
 import { Mail } from '../shared/mail.model';
 import { SendService } from '../shared/send.service';
 
+
 @Component({
   selector: 'app-main-box',
   templateUrl: './main-box.component.html',
@@ -25,11 +26,11 @@ export class MainBoxComponent implements OnInit {
         }
         else
         {
-          this.selectedMail = null; 
+          this.selectedMail = null;
           this.selected = false;
         }
       })
-    
+
     this.sendSerice.messageForm.subscribe(
       ()=>{
         this.writing = !this.writing;

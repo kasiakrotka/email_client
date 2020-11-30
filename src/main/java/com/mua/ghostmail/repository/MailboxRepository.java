@@ -1,12 +1,15 @@
 package com.mua.ghostmail.repository;
 
 import com.mua.ghostmail.entity.Mailbox;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 
 @Repository
@@ -20,4 +23,10 @@ public interface MailboxRepository extends CrudRepository<Mailbox, Long> {
 
     @Query("DELETE FROM Mailbox m WHERE m.address = :address")
     void deleteByUsername(String address);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Mailbox  m SET m.endDate = :endDate WHERE m.address = :address")
+    int updateEndDate(@Param("address") String address,
+                      @Param("endDate") Date endDate);
 }
