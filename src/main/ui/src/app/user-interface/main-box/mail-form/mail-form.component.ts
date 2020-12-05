@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { SendService } from '../../shared/send.service';
 import { Mail } from '../../shared/mail.model';
+import {FormBuilder, NgForm, Validators} from "@angular/forms";
 
 
 @Component({
@@ -9,19 +10,45 @@ import { Mail } from '../../shared/mail.model';
   templateUrl: './mail-form.component.html',
   styleUrls: ['./mail-form.component.css']
 })
-export class MailFormComponent implements OnInit {
+export class MailFormComponent implements OnInit, AfterViewInit {
 
-  simple_mail = new Mail('newsletter@news.cropp.com', 'Podbij świat… w dobrych butach', 'Ten list został wysłany pod adres: frygtt@gmail.com. Mamy nadzieję, że informacje odnośnie marki Cropp, które do Państwa wysyłamy są ciekawe i wartościowe. Gdyby jednak nie chcieli już Państwo takich listów otrzymywać, lub jeśli list ten dotarł do Państwa przez pomyłkę proszę o kliknięcie w kliknij tutaj. \n LPP S.A., ul. Łąkowa 39/44, 80-769 Gdańsk, Polska, zarejestrowana przez Sąd Rejonowy Gdańsk-Północ w Gdańsku, KRS: 0000000778, kapitał zakładowy 3.662.246 PLN (zapłacony w całości), NIP: 583-10-14-898, \n REGON: 190852164');
+  @ViewChild('f') mailForm: NgForm;
 
+  email = {
+    address: '',
+    topic: '',
+    body: '',
+  }
 
-  constructor(private http: HttpClient, private sendService: SendService) { }
+  constructor(public fb: FormBuilder, private http: HttpClient, private sendService: SendService) { }
 
   ngOnInit(): void {
   }
 
-  onSend() {
-    //send http post request
-
+  ngAfterViewInit() {
+    setTimeout(() => {
+    this.mailForm.form.patchValue({
+      address: this.sendService.address,
+      topic: this.sendService.topic,
+      body: this.sendService.body
+    });},0);
   }
 
+  onSend() {
+    this.copyDataToService();
+    this.sendService.sendMessage();
+  }
+
+  ngOnDestroy() {
+    this.copyDataToService();
+  }
+  ngOnChanges(){
+    this.copyDataToService();
+  }
+
+  copyDataToService(){
+    this.sendService.body = this.mailForm.value.body;
+    this.sendService.address = this.mailForm.value.address;
+    this.sendService.topic = this.mailForm.value.topic;
+  }
 }

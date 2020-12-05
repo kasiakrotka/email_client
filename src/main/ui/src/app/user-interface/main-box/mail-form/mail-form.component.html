@@ -1,19 +1,49 @@
-<form role = "form">
+<form role = "form" (ngSubmit)="onSend()" #f="ngForm">
 <div class="row">
     <div class = "col-md">
-        <input type = "text" class = "form-control" id = "address" placeholder = "Adresat">
+        <input
+          type = "text"
+          class = "form-control"
+          id = "address"
+          placeholder = "Adresat"
+          ngModel
+          name="address"
+          required
+          email
+          #address="ngModel"
+        >
     </div>
 </div>
 <div class="row">
     <div class = "col-md">
-        <input type = "text" class = "form-control" id = "topic" placeholder = "Temat">
+        <input
+          type = "text"
+          class = "form-control"
+          id = "topic"
+          placeholder = "Temat"
+          ngModel
+          name = "topic"
+          required
+          #topic = "ngModel"
+        >
     </div>
 </div>
 <div class="row">
     <div class="col-md">
-        <textarea class="form-control" id="textArea" rows="10" placeholder="Hello..."></textarea>
+        <textarea
+          class="form-control"
+          id="textArea"
+          rows="10"
+          placeholder="Hello..."
+          ngModel
+          name="body"
+          #body = "ngModel"
+        >
+        </textarea>
     </div>
 </div>
+  <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Wyślij</button>
 </form>
+<p *ngIf="!address.valid && address.touched">Niepoprawne dane adresata</p>
+<p *ngIf="!topic.valid && topic.touched">Wiadomość musi zawierać tytuł</p>
 
-<button (click)="onSend()">Wyślij</button>

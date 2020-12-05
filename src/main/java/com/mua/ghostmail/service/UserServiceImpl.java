@@ -3,6 +3,7 @@ package com.mua.ghostmail.service;
 import com.mua.ghostmail.entity.Mailbox;
 import com.mua.ghostmail.repository.MailboxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
+@CacheEvict
 public class UserServiceImpl implements UserService{
 
     @Autowired

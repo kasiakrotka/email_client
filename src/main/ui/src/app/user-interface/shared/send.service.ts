@@ -6,7 +6,9 @@ import { Mail } from './mail.model';
 export class SendService {
     messageForm = new EventEmitter<Mail>();
     newMessageForm = new EventEmitter<Mail>();
-    currentMessage = null;
+    address = '';
+    topic = '';
+    body = '';
 
     constructor(private http: HttpClient){}
 
@@ -39,4 +41,7 @@ export class SendService {
         });
     }
 
+  sendMessage() {
+
+  }
 }

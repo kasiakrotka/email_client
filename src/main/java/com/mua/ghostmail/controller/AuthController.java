@@ -1,14 +1,12 @@
 package com.mua.ghostmail.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.mua.ghostmail.entity.Mailbox;
 import com.mua.ghostmail.exception.UserAlreadyExistsException;
 import com.mua.ghostmail.model.RegisterForm;
-import com.mua.ghostmail.security.CustomUserDetails;
 import com.mua.ghostmail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;

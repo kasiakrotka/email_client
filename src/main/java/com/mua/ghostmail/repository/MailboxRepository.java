@@ -1,6 +1,7 @@
 package com.mua.ghostmail.repository;
 
 import com.mua.ghostmail.entity.Mailbox;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -12,6 +13,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
+@CacheEvict
 @Repository
 public interface MailboxRepository extends CrudRepository<Mailbox, Long> {
 
