@@ -4,8 +4,19 @@
   overflow-y: scroll;
 }
 
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background: #df54df;
+}
+.table-hover tbody tr:hover td:first-child, .table-hover tbody tr:hover th {
+  background: #f6f6f6;
+}
+
+.borderless td, .borderless th {
+  border: none !important;
+}
+
 table.table-inbox {
-  width: 100%;
+  width: 80%;
   table-layout: fixed;
 }
 
@@ -23,7 +34,7 @@ td.td-date {
 }
 
 td.small-cell {
-  width: 25px;
+  width: 40px;
 }
 td.td-address {
   text-overflow: ellipsis;
@@ -50,4 +61,8 @@ td.topic {
 
 .scrollbar-primary {
   scrollbar-color: #cfcfcf #dedede;
+}
+
+.table-div {
+  height: 100vh;
 }

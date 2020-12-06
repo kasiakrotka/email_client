@@ -1,3 +1,4 @@
+<button class="close" mat-button>X</button>
 <form role = "form" (ngSubmit)="onSend()" #f="ngForm">
 <div class="row">
     <div class = "col-md">
@@ -43,6 +44,7 @@
     </div>
 </div>
   <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Wyślij</button>
+  <button class="btn btn-primary" type="button" (click)="onReset()">Usuń</button>
 </form>
 <p *ngIf="!address.valid && address.touched">Niepoprawne dane adresata</p>
 <p *ngIf="!topic.valid && topic.touched">Wiadomość musi zawierać tytuł</p>

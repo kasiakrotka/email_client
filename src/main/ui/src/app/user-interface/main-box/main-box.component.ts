@@ -14,7 +14,7 @@ export class MainBoxComponent implements OnInit {
   selectedMail: Mail;
   selected = false;
   writing = false;
-  constructor(private inboxService: InboxService, private sendSerice: SendService) { }
+  constructor(private inboxService: InboxService, private sendService: SendService) { }
 
   ngOnInit(): void {
     this.inboxService.messageSelected.subscribe(
@@ -31,11 +31,12 @@ export class MainBoxComponent implements OnInit {
         }
       })
 
-    this.sendSerice.messageForm.subscribe(
+    this.sendService.messageForm.subscribe(
       ()=>{
         this.writing = !this.writing;
         this.selected = false;
         this.selectedMail = null;
+        console.log(this.writing);
       })
   }
 

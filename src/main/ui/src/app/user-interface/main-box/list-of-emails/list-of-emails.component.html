@@ -1,5 +1,28 @@
+
+  <div class="table-div">
+  <div *ngFor="let message of messages" class="row">
+    <div id="select" class="col small-cell">
+      <input type="checkbox" class="mail-checkbox">
+    </div>
+    <div id="info" class="col">
+      <div id="sender" class="row">
+        {{ message.sender }}
+      </div>
+      <div id="topic" class="row">
+        {{ message.topic }}
+      </div>
+    </div>
+    <div id="date" class="col">
+      {{ message.date }}
+    </div>
+    <div id="arrow" class="col">
+
+    </div>
+  </div>
+  </div>
+  <!--
 <div class="inbox-wrap scrollbar-primary">
-  <table class=" force-overflow table table-hover table-inbox">
+  <table class="force-overflow table table-hover table-inbox borderless">
     <tbody>
     <tr *ngFor="let message of messages">
       <td class="small-cell">
@@ -11,5 +34,5 @@
     </tr>
     </tbody>
   </table>
-</div>
+</div> -->
 

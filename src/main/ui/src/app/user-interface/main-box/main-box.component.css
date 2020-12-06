@@ -1,0 +1,21 @@
+.on-the-side {
+  width: 33%;
+  display: inline-block;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px !important;
+  background: #a35de4;
+  position: relative;
+  float: left;
+}
+
+.tab-open {
+  width: 67%;
+  background: aquamarine;
+  position: relative;
+  float: left;
+}
+
+.no-tab-open {
+  background: red;
+  width: 100%
+}

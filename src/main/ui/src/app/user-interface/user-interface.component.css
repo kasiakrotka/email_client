@@ -1,13 +1,13 @@
 .ui {
   background-color: #f6f6f6;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 #sidebar {
   overflow: hidden;
   color: #dedede;
-  width:250px;
+  width: 20vw;
   height: 100%;
   left: 0px;
   position: fixed;
@@ -18,28 +18,19 @@
 }
 
 #main-content {
+  display: inline-block;
   left: 0px;
-  margin-left: 258px;
+  margin-left: 20vw;
   height: 100%;
+  width: 80vw;
+  padding: 50px 25px 50px 25px;
+  position: fixed;
+  overflow: hidden;
 }
 
 .wrapper {
-  display: inline-block;
-  margin-top: 50px;
-  padding: 0px 15px 15px;
+  display:inline-block;
+  overflow: hidden;
   width: 100%;
-}
-
-.div {
-  display: block;
-}
-
-.grid {
-  position: relative;
-  width: 100%;
-  color: whitesmoke;
-  border-radius: 2px;
-  margin-bottom: 25px;
-  margin-left: 15px;
 }
 

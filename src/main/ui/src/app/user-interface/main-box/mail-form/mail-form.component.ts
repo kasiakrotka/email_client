@@ -51,4 +51,11 @@ export class MailFormComponent implements OnInit, AfterViewInit {
     this.sendService.address = this.mailForm.value.address;
     this.sendService.topic = this.mailForm.value.topic;
   }
+
+  onReset() {
+    this.mailForm.resetForm();
+    this.sendService.body = '';
+    this.sendService.address = '';
+    this.sendService.topic = '';
+  }
 }
