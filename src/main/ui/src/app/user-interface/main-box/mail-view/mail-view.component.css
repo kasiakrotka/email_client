@@ -1,0 +1,62 @@
+.mail-view-wrapper {
+  background-color: white;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.close-button{
+  margin: 5px 10px;
+  position: relative;
+  text-align: right;
+}
+
+.mail-view {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+}
+
+.sender {
+  font-weight: bold;
+}
+
+.date {
+  font-size: 14px;
+}
+
+.topic {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.button-row-wrapper {
+  margin-left: 20px;
+  display: flex;
+  float: right;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.btn-form {
+  background: #df54df;
+  border: none;
+  color: #ffffff;
+  border-radius: 0px;
+  width: auto;
+  margin: 14px 14px 14px 14px;
+}
+
+.btn:active, .btn:focus{
+  border: none;
+  box-shadow:none !important;
+  outline:0px !important;
+}
+
+.btn:active {
+  background: #d219d2;
+}

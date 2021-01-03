@@ -2,7 +2,6 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 .body {
-  background: snow;
   height: 100%;
   width: 100%;
   padding: 0px 0px 0px 0px!important;

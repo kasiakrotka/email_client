@@ -10,14 +10,12 @@ import javax.persistence.*;
 public class Header {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private  Message message;
-
-    @NotNull
-    private String name;
 
     @NotNull
     private String content;

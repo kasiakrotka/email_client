@@ -1,4 +1,4 @@
-
+<div class="wrapper">
   <div [ngClass]="{'on-the-side': selected || writing, 'no-tab-open': !selected && !writing}">
     <app-list-of-emails [trigger]="selected"></app-list-of-emails>
   </div>
@@ -8,4 +8,4 @@
   <div [ngClass]="{'tab-open': writing}" >
     <app-mail-form *ngIf="writing" ></app-mail-form>
   </div>
-
+</div>

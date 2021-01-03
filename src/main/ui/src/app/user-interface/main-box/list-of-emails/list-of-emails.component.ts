@@ -21,6 +21,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
 export class ListOfEmailsComponent implements OnInit {
 
   messages: Mail[] = [];
+  selectedMessage: Mail = null;
   startWidth: number;
   @Input()
   trigger: boolean;
@@ -54,6 +55,7 @@ export class ListOfEmailsComponent implements OnInit {
   }
 
   onSelected(message: Mail): void {
+      this.selectedMessage = message;
       this.inboxService.messageSelected.emit(message);
   }
 }

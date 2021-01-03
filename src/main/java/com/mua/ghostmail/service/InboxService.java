@@ -1,16 +1,22 @@
 package com.mua.ghostmail.service;
 
 import com.sun.mail.pop3.POP3Store;
+import org.springframework.stereotype.Service;
 
 import javax.mail.*;
 import java.io.IOException;
 import java.util.Properties;
 
+@Service("InboxService")
 public class InboxService {
 
     static Message [] messages;
 
-    public static boolean authAccount(String pop3Host, String storeType, String port,
+    public Message[] getMessages(){
+        return messages;
+    }
+
+    public boolean authAccount(String pop3Host, String storeType, String port,
                                    String user, String password, Boolean fetchEmails) {
 
         Properties properties = new Properties();
@@ -18,9 +24,9 @@ public class InboxService {
         properties.put("mail.pop3.host", pop3Host);
         Session emailSession = Session.getDefaultInstance(properties);
 
-        POP3Store emailStore = null;
+        Store emailStore = null;
         try {
-            emailStore = (POP3Store) emailSession.getStore(storeType);
+            emailStore = emailSession.getStore(storeType);
         } catch (NoSuchProviderException e) {
             System.out.println("Can't connect with server");
             return false;
@@ -58,6 +64,7 @@ public class InboxService {
 
         emailFolder.open(Folder.READ_ONLY);
         messages = emailFolder.getMessages();
+        System.out.println("messages.length = "+messages.length);
         for (int i = 0; i < messages.length; i++) {
             Message message = messages[i];
             System.out.println("---------------------------------");
@@ -79,8 +86,8 @@ public class InboxService {
             Session emailSession = Session.getDefaultInstance(properties);
 
             //2) create the POP3 store object and connect with the pop server
-            POP3Store emailStore = (POP3Store) emailSession.getStore(storeType);
-            emailStore.connect(user, password);
+            Store emailStore = emailSession.getStore(storeType);
+            emailStore.connect(pop3Host, user, password);
 
             //3) create the folder object and open it
             Folder emailFolder = emailStore.getFolder("INBOX");
@@ -88,7 +95,9 @@ public class InboxService {
 
             //4) retrieve the messages from the folder in an array and print it
             messages = emailFolder.getMessages();
-            for (int i = 0; i < messages.length; i++) {
+            System.out.println("messages.length = "+messages.length);
+
+            for (int i = 0, n = messages.length ; i < n; i++) {
                 Message message = messages[i];
                 System.out.println("---------------------------------");
                 System.out.println("Email Number " + (i + 1));

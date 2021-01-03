@@ -16,4 +16,8 @@ export class MailViewComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  onRespond(sender: string) {
+
+  }
 }

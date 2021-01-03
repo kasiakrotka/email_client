@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class Message {
 
-    public Message(String id, String sender, Date date, String seen, String body) {
+    public Message(long id, String sender, Date date, String seen, String body) {
         this.id = id;
         this.sender = sender;
         this.date = date;
@@ -21,8 +21,9 @@ public class Message {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private  Mailbox mailbox;
@@ -38,6 +39,7 @@ public class Message {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+    private String subject;
     @NotNull
     private String seen;
     @Lob

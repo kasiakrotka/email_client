@@ -15,15 +15,15 @@ public class EmailConfig
     public JavaMailSender getJavaMailSender()
     {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
+        mailSender.setHost("localhost");
         mailSender.setPort(25);
 
-        mailSender.setUsername("admin@gmail.com");
+        mailSender.setUsername("admin@ghost.com");
         mailSender.setPassword("password");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.auth", "false");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.debug", "true");
 
@@ -34,8 +34,8 @@ public class EmailConfig
     public SimpleMailMessage emailTemplate()
     {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("somebody@gmail.com");
-        message.setFrom("admin@gmail.com");
+        message.setTo("somebody@ghost.com");
+        message.setFrom("admin@ghost.com");
         message.setText("FATAL - Application crash. Save your job !!");
         return message;
     }

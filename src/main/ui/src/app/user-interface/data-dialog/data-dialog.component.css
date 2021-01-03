@@ -1,0 +1,36 @@
+.btn:active, .btn:focus{
+  border: none;
+  box-shadow:none !important;
+  outline:0px !important;
+}
+
+.btn:active {
+  background: #d219d2;
+}
+
+.btn {
+  background: #df54df;
+  border: none;
+  color: #ffffff;
+  border-radius: 0px;
+  margin-left: 20px;
+  width: 80px;
+}
+
+#btn-yes {
+  background: #c42bc4;
+}
+
+.mat-dialog-actions {
+  float: right;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #c42bc4 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #c42bc4 !important;;
+}

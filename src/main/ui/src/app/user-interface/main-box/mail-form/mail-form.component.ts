@@ -13,6 +13,7 @@ import {FormBuilder, NgForm, Validators} from "@angular/forms";
 export class MailFormComponent implements OnInit, AfterViewInit {
 
   @ViewChild('f') mailForm: NgForm;
+  loggedUser: any;
 
   email = {
     address: '',
@@ -29,14 +30,14 @@ export class MailFormComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
     this.mailForm.form.patchValue({
       address: this.sendService.address,
-      topic: this.sendService.topic,
+      topic: this.sendService.subject,
       body: this.sendService.body
     });},0);
   }
 
   onSend() {
     this.copyDataToService();
-    this.sendService.sendMessage();
+    this.sendService.sendMessage().subscribe();
   }
 
   ngOnDestroy() {
@@ -49,13 +50,13 @@ export class MailFormComponent implements OnInit, AfterViewInit {
   copyDataToService(){
     this.sendService.body = this.mailForm.value.body;
     this.sendService.address = this.mailForm.value.address;
-    this.sendService.topic = this.mailForm.value.topic;
+    this.sendService.subject = this.mailForm.value.topic;
   }
 
   onReset() {
     this.mailForm.resetForm();
     this.sendService.body = '';
     this.sendService.address = '';
-    this.sendService.topic = '';
+    this.sendService.subject = '';
   }
 }

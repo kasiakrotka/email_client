@@ -1,49 +1,110 @@
 .inbox-wrap {
+  display: flex;
   height: 80%;
   width: 100%;
   overflow-y: scroll;
 }
 
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+.row-content {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.selected-message , .selected-message .message-info .topic, .selected-message .message-info .sender {
   background: #df54df;
+  color: #ffffff;
 }
-.table-hover tbody tr:hover td:first-child, .table-hover tbody tr:hover th {
-  background: #f6f6f6;
+.message-info {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
 }
 
-.borderless td, .borderless th {
-  border: none !important;
-}
-
-table.table-inbox {
+.sender {
+  color: #4f4f4f;
+  font-weight: bold;
   width: 80%;
-  table-layout: fixed;
-}
-
-td {
+  padding: 2px 14px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 14px;
+}
+
+.topic {
+  color: #959595;
+  width: 80%;
+  padding: 2px 14px;
   white-space: nowrap;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-td.td-date {
- text-align: right;
-  width: 100px;
-}
-
-td.small-cell {
-  width: 40px;
-}
-td.td-address {
+  overflow: hidden;
   text-overflow: ellipsis;
-  width: 30%;
-
+  font-size: 14px;
 }
 
-td.topic {
+.date {
+  padding: 2px 12px;
+  text-align: right;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
+  float: right;
+  width: 20%;
+  font-size: 12px;
+}
+
+.message-row{
+  width: 100%;
+  height: 10%;
+  position: relative;
+  float: left;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.message-row:hover .message-info, .message-row:hover .message-info .topic, .message-row:hover .message-info .sender {
+  cursor:pointer;
+  background: #ee86ee;
+  color: #ffffff;
+}
+
+.message-row:hover .arrow-wrapper .arrow-right {
+  border-left: 10px solid  #ee86ee;
+}
+
+.arrow-selected .arrow-right {
+  border-left: 10px solid  #df54df;;
+}
+
+.message-row:hover .date{
+  cursor:pointer;
+  background: #ee86ee;
+  color: #ffffff;
+}
+
+.checkbox-div {
+  padding: 10px 20px;
+  display: inline-block;
+  margin: auto;
+}
+
+.table-div {
+  height: 87vh;
+  margin-top: 20px;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .new-message {
@@ -51,18 +112,28 @@ td.topic {
 }
 
 .scrollbar-primary::-webkit-scrollbar {
-  width: 10px;
+  border-radius: 5px;
+  width: 5px;
   background-color: #dedede; }
 
 .scrollbar-primary::-webkit-scrollbar-thumb {
-  border-radius: 1px;
+  border-radius: 5px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: #cfcfcf; }
+  background-color: #df54df; }
 
 .scrollbar-primary {
   scrollbar-color: #cfcfcf #dedede;
 }
 
-.table-div {
-  height: 100vh;
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid transparent;
+}
+
+.arrow-wrapper {
+  display: inline-block;
+  margin: auto 10px auto auto;
 }

@@ -1,38 +1,39 @@
-
-  <div class="table-div">
-  <div *ngFor="let message of messages" class="row">
-    <div id="select" class="col small-cell">
+<div class="table-div scrollbar-primary">
+  <div *ngFor="let message of messages" class="message-row">
+    <div id="select" class="checkbox-div">
       <input type="checkbox" class="mail-checkbox">
     </div>
-    <div id="info" class="col">
-      <div id="sender" class="row">
-        {{ message.sender }}
+    <div (click)="onSelected(message)" [ngClass]= "{ 'selected-message' : this.selectedMessage == message}" class="row-content">
+      <div id="info" class="message-info">
+        <div id="sender" class="sender">
+          {{ message.sender }}
+        </div>
+        <div id="topic" class="topic">
+          {{ message.topic }}
+        </div>
       </div>
-      <div id="topic" class="row">
-        {{ message.topic }}
+      <div id="date" class="date">
+        {{ message.date }}
       </div>
     </div>
-    <div id="date" class="col">
-      {{ message.date }}
-    </div>
-    <div id="arrow" class="col">
-
+    <div [ngClass]= "{ 'arrow-selected' : this.selectedMessage == message}" class="arrow-wrapper">
+      <div class="arrow-right"></div>
     </div>
   </div>
-  </div>
-  <!--
+</div>
+<!--
 <div class="inbox-wrap scrollbar-primary">
-  <table class="force-overflow table table-hover table-inbox borderless">
-    <tbody>
-    <tr *ngFor="let message of messages">
-      <td class="small-cell">
-        <input type="checkbox" class="mail-checkbox">
-      </td>
-      <td class="td-address" [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)">{{ message.sender }}</td>
-      <td [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)">{{ message.topic }}</td>
-      <td class="td-date" [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)"> {{ message.date }}</td>
-    </tr>
-    </tbody>
-  </table>
+<table class="force-overflow table table-hover table-inbox borderless">
+  <tbody>
+  <tr *ngFor="let message of messages">
+    <td class="small-cell">
+      <input type="checkbox" class="mail-checkbox">
+    </td>
+    <td class="td-address" [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)">{{ message.sender }}</td>
+    <td [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)">{{ message.topic }}</td>
+    <td class="td-date" [ngClass]="{'new-message': message.seen === false}" (click)="onSelected(message)"> {{ message.date }}</td>
+  </tr>
+  </tbody>
+</table>
 </div> -->
 

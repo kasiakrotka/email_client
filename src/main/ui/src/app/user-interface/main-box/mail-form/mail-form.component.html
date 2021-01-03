@@ -1,36 +1,41 @@
-<button class="close" mat-button>X</button>
-<form role = "form" (ngSubmit)="onSend()" #f="ngForm">
-<div class="row">
-    <div class = "col-md">
+<div class="mail-form-wrapper">
+  <div class="close-button">
+    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="#959595" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+      <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+    </svg>
+  </div>
+  <form class="mail-form" role="form" (ngSubmit)="onSend()" #f="ngForm">
+    <div class="row">
+      <div class="col-md">
         <input
-          type = "text"
-          class = "form-control"
-          id = "address"
-          placeholder = "Adresat"
+          type="text"
+          class="form-control"
+          id="address"
+          placeholder="Adresat"
           ngModel
           name="address"
           required
-          email
           #address="ngModel"
         >
+      </div>
     </div>
-</div>
-<div class="row">
-    <div class = "col-md">
+    <div class="row">
+      <div class="col-md">
         <input
-          type = "text"
-          class = "form-control"
-          id = "topic"
-          placeholder = "Temat"
+          type="text"
+          class="form-control"
+          id="topic"
+          placeholder="Temat"
           ngModel
-          name = "topic"
+          name="topic"
           required
-          #topic = "ngModel"
+          #topic="ngModel"
         >
+      </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md">
+    <div class="row">
+      <div class="col-md">
         <textarea
           class="form-control"
           id="textArea"
@@ -38,14 +43,16 @@
           placeholder="Hello..."
           ngModel
           name="body"
-          #body = "ngModel"
+          #body="ngModel"
         >
         </textarea>
+      </div>
     </div>
+  </form>
+  <p *ngIf="!address.valid && address.touched">Niepoprawne dane adresata</p>
+  <p *ngIf="!topic.valid && topic.touched">Wiadomość musi zawierać tytuł</p>
 </div>
-  <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Wyślij</button>
-  <button class="btn btn-primary" type="button" (click)="onReset()">Usuń</button>
-</form>
-<p *ngIf="!address.valid && address.touched">Niepoprawne dane adresata</p>
-<p *ngIf="!topic.valid && topic.touched">Wiadomość musi zawierać tytuł</p>
-
+<div class="button-row-wrapper">
+  <button class="btn btn-form" type="button" (click)="onReset()">Usuń</button>
+  <button class="btn btn-form" type="submit" (click)="onSend()" [disabled]="!f.valid">Wyślij</button>
+</div>

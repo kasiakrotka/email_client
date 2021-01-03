@@ -1,5 +1,30 @@
+.mail-form-wrapper {
+  background-color: white;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-row-wrapper {
+  margin-left: 20px;
+  display: flex;
+  float: right;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.mail-form {
+  margin: 10px;
+}
+
+.close-button{
+  margin: 5px 10px;
+  position: relative;
+  text-align: right;
+}
+
 .form-control {
-    border-style: none none solid none;
+    border-style: solid none none none;
     box-shadow: none;
     border-radius: 0;
 }
@@ -8,6 +33,9 @@ input.ng-invalid.ng-touched {
   border: 1px solid #ff0000;
 }
 
+.submit-button {
+  margin-right: 10px;
+}
 .close.mat-button {
   position: absolute;
   top: 0;
@@ -15,4 +43,45 @@ input.ng-invalid.ng-touched {
   padding: 5px;
   line-height: 14px;
   min-width: auto;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: #ced4da;
+  box-shadow: none;
+  outline: 0 none;
+  border-style: solid none none none;
+}
+
+.btn-form {
+  background: #df54df;
+  border: none;
+  color: #ffffff;
+  border-radius: 0px;
+  width: 100px;
+  margin: 14px 0px 14px 14px;
+}
+
+.btn:active, .btn:focus{
+  border: none;
+  box-shadow:none !important;
+  outline:0px !important;
+}
+
+.btn:active {
+  background: #d219d2;
 }

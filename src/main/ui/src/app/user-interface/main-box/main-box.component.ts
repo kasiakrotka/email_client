@@ -19,17 +19,10 @@ export class MainBoxComponent implements OnInit {
   ngOnInit(): void {
     this.inboxService.messageSelected.subscribe(
       (mail: Mail) => {
-        if(this.selected == false){
           this.selectedMail = mail;
           this.selected = true;
           this.writing = false;
-        }
-        else
-        {
-          this.selectedMail = null;
-          this.selected = false;
-        }
-      })
+      });
 
     this.sendService.messageForm.subscribe(
       ()=>{
