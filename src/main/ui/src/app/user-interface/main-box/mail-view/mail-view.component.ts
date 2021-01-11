@@ -11,7 +11,7 @@ import { Mail } from '../../shared/mail.model';
 export class MailViewComponent implements OnInit {
 
   @Input() mail: Mail;
-  constructor() {
+  constructor(private inboxService: InboxService) {
   }
 
   ngOnInit(): void {
@@ -19,5 +19,10 @@ export class MailViewComponent implements OnInit {
 
   onRespond(sender: string) {
 
+  }
+
+  closeTab() {
+    this.inboxService.selectedMessage = null;
+    this.inboxService.messageSelected.emit(null);
   }
 }

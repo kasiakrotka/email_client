@@ -59,4 +59,8 @@ export class MailFormComponent implements OnInit, AfterViewInit {
     this.sendService.address = '';
     this.sendService.subject = '';
   }
+
+  closeTab() {
+    this.sendService.messageForm.emit();
+  }
 }

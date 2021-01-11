@@ -1,7 +1,6 @@
 package com.mua.ghostmail;
 
 import com.mua.ghostmail.repository.MailboxRepository;
-import com.mua.ghostmail.service.InboxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,8 +18,8 @@ public class GhostmailApplication {
 
     @Autowired
     private MailboxRepository mailboxRepository;
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         /*
         InboxService inbox = new InboxService();
         String host = "localhost";//change accordingly
@@ -32,9 +31,11 @@ public class GhostmailApplication {
         */
         //SMTPService sendService = new SMTPService();
         //sendService.sendMessage();
-        InboxService inbox = new InboxService();
-        inbox.authAccount("localhost", "pop3", "110", "admin@ghost.com", "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", true);
+        //InboxService inbox = new InboxService();
+        //inbox.authAccount("localhost", "pop3", "110", "admin@ghost.com", "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", true);
         //inbox.receiveEmail("localhost", "pop3", "110", "admin@ghost.com", "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG");
+        //ArrayList<MessageModel> messages = inbox.getMessages();
+        //System.out.println(messages.get(0).getSubject());
 
         SpringApplication.run(GhostmailApplication.class, args);
     }
@@ -43,11 +44,11 @@ public class GhostmailApplication {
     CommandLineRunner runner() {
         return args -> {
 //            Save demo data after start
-            long mili = (new Date()).getTime() +31556952;
-            long start_old_mili = (new Date()).getTime() - (3600000*2);
+            long mili = (new Date()).getTime() + 31556952;
+            long start_old_mili = (new Date()).getTime() - (3600000 * 2);
             long end_old_mili = (new Date()).getTime() - (3600000);
-           // mailboxRepository.save(new Mailbox("admin@ghost.com", "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", new Date(), new Date(mili)));
-           // mailboxRepository.save(new Mailbox("old@ghost.com", "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", new Date(start_old_mili), new Date(end_old_mili)));
+            // mailboxRepository.save(new Mailbox("admin@ghost.com", "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", new Date(), new Date(mili)));
+            // mailboxRepository.save(new Mailbox("old@ghost.com", "$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG", new Date(start_old_mili), new Date(end_old_mili)));
         };
     }
 }

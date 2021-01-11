@@ -3,6 +3,7 @@ import { InboxService } from '../../shared/inbox.service';
 import { Mail } from '../../shared/mail.model';
 import {Observable} from "rxjs";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {isPackageNameSafeForAnalytics} from "@angular/cli/models/analytics";
 
 @Component({
   selector: 'app-list-of-emails',
@@ -28,33 +29,15 @@ export class ListOfEmailsComponent implements OnInit {
 
   constructor(private inboxService: InboxService, private element: ElementRef) { }
 
-
-  @HostBinding('@grow') get grow() {
-    return {value: this.trigger, params: {startWidth: this.startWidth}};
-  }
-
-  setStartWidth(){
-    this.startWidth= this.element.nativeElement.clientWidth;
-    console.log("trigger: "+this.startWidth+"\n");
-  }
-
-  ngOnChanges(){
-    this.setStartWidth();
-  }
-
   ngOnInit(): void {
-    let inboxObs: Observable<any>;
-    this.messages = this.inboxService.getMessages();
-    /*
-    inboxObs = this.inboxService.fetchMessages();
-    inboxObs.subscribe( response => {
-      console.log(response);
-    }, errorMessage => {
-      console.log(errorMessage);
-    });*/
+      //this.messages = this.inboxService.getMessages();
+      this.inboxService.fetchMessages().subscribe(messages => {
+      this.messages = messages;
+    });
   }
 
   onSelected(message: Mail): void {
+
       this.selectedMessage = message;
       this.inboxService.messageSelected.emit(message);
   }

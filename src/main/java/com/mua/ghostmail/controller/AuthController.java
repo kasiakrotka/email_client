@@ -24,15 +24,14 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/addtime")
-    public ResponseEntity addTimeToAccount(@RequestBody String body){
+    public ResponseEntity addTimeToAccount(@RequestBody int time){
 
-        System.out.println(body);
         Date result = null;
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String username = securityContext.getAuthentication().getPrincipal().toString();
         Mailbox mailbox = userService.findByUsername(username).orElse(null);
         if(mailbox != null) {
-            result = userService.updateEndDate(mailbox, Integer.parseInt(body));
+            result = userService.updateEndDate(mailbox, time);
             System.out.println(result);
         }
         if(result != null){
@@ -49,8 +48,11 @@ public class AuthController {
 
         Mailbox mailbox = userService.findByUsername(username).orElse( null );
         if(mailbox != null) {
-            userService.deleteUser(mailbox);
-            return ResponseEntity.ok().build();
+            int result = userService.deleteUser(mailbox);
+            if(result > 0)
+                return ResponseEntity.ok().build();
+            else
+                return ResponseEntity.notFound().build();
         }
         else {
             return ResponseEntity.notFound().build();
@@ -111,11 +113,4 @@ public class AuthController {
         map.put("error", message);
         return map;
     }
-
-    private String dateToString(Date date){
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
-        return ft.format(date);
-    }
-
-
 }

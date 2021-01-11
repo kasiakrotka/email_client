@@ -8,6 +8,7 @@ import {AuthService} from "../../shared/auth.service";
 @Injectable()
 export class SendService {
     messageForm = new EventEmitter<Mail>();
+
     newMessageForm = new EventEmitter<Mail>();
     address = '';
     subject = '';

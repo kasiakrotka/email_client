@@ -20,8 +20,6 @@ import {AuthInterceptor} from "./shared/auth-interceptor";
 import {MatDialogModule} from "@angular/material/dialog";
 import { ConfirmDialogComponent } from './user-interface/confirm-dialog/confirm-dialog.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatMenuModule} from "@angular/material/menu";
-import {MatButtonModule} from "@angular/material/button";
 import {MaterialModule} from "./material.module";
 import {DataDialogComponent} from "./user-interface/data-dialog/data-dialog.component";
 import {InfoDialogComponent} from "./user-interface/info-dialog/info-dialog.component";

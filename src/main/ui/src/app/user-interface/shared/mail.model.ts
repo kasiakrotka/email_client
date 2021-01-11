@@ -1,13 +1,14 @@
 
 export class Mail {
 
+  public id?: string;
+  public date: string;
+  public time: string;
     public sender: string;
     public topic: string;
     public text: string;
     public seen = true;
-    public id?: string;
-    public date: string;
-    public time: string;
+
     //jeszcze dodać godzinę i datę
 
     constructor(sender: string, topic: string, text: string) {

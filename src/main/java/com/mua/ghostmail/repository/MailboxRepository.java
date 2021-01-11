@@ -13,7 +13,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
-@CacheEvict
 @Repository
 public interface MailboxRepository extends CrudRepository<Mailbox, Long> {
 
@@ -22,9 +21,6 @@ public interface MailboxRepository extends CrudRepository<Mailbox, Long> {
 
     @Query("SELECT m FROM Mailbox m WHERE m.address = :address")
     Optional<Mailbox> findByAddress(String address);
-
-    @Query("DELETE FROM Mailbox m WHERE m.address = :address")
-    void deleteByUsername(String address);
 
     @Modifying
     @Transactional

@@ -1,20 +1,14 @@
 <ul class="sidebar-menu">
-  <p class="centered">Obrazek</p>
-  <h5 class="centered">Jakis tytul</h5>
-  <li>
-    <button class="main-menu-button">WYSŁANE</button>
-  </li>
-  <li>
-    <button class="main-menu-button">ODEBRANE</button>
-  </li>
-  <li>
-    <button class="main-menu-button" (click)="onDelete()">USUŃ ADRES</button>
-  </li>
+  <h5 class="centered">GHOSTMAIL</h5>
+  <p class="centered">{{username}}</p>
   <li>
     <button class="main-menu-button" (click)="onSend()">NOWA WIADOMOŚĆ</button>
   </li>
   <li>
     <button class="main-menu-button" (click)="onLogout()">WYLOGUJ SIĘ</button>
+  </li>
+  <li>
+    <button class="main-menu-button" (click)="onDelete()">USUŃ ADRES</button>
   </li>
 </ul>
 

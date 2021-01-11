@@ -23,6 +23,7 @@ export class MainMenuComponent implements OnInit{
   hours: number =0;
   minutes: number =0;
   seconds: number =0;
+  username: string;
   interval;
 
   constructor(private dialog: MatDialog, private http: HttpClient, private tokenService: TokenStorageService, private router: Router, private sendService: SendService, private authService: AuthService) { }
@@ -30,8 +31,10 @@ export class MainMenuComponent implements OnInit{
   ngOnInit(): void {
     this.authService.user_data.subscribe(user => this.loggedUser = user);
     this.loggedUser = this.loggedUser;
-    if(this.loggedUser != null)
+    if(this.loggedUser != null) {
       this.timeLeft = this.loggedUser.getLeftTime();
+      this.username = this.loggedUser.getAddress();
+    }
     this.updateTimer();
     this.startTimer();
   }

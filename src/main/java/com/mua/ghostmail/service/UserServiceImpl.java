@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-@CacheEvict
 public class UserServiceImpl implements UserService{
 
     @Autowired
@@ -22,7 +21,6 @@ public class UserServiceImpl implements UserService{
     public UserServiceImpl() {
         this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
-
 
     @Override
     public void save(Mailbox mailbox) {
@@ -38,9 +36,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteUser(Mailbox mailbox)
+    public int deleteUser(Mailbox mailbox)
     {
-            mailboxRepository.delete(mailbox);
+        Mailbox updatedMailbox = mailbox;
+        updatedMailbox.setEndDate(new Date());
+        int result = mailboxRepository.updateEndDate(updatedMailbox.getAddress(), updatedMailbox.getEndDate());
+        return result;
     }
 
     @Override
