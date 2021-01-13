@@ -23,6 +23,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MaterialModule} from "./material.module";
 import {DataDialogComponent} from "./user-interface/data-dialog/data-dialog.component";
 import {InfoDialogComponent} from "./user-interface/info-dialog/info-dialog.component";
+import {AuthService} from "./shared/auth.service";
+import {AuthGuard} from "./auth-guard.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +48,8 @@ import {InfoDialogComponent} from "./user-interface/info-dialog/info-dialog.comp
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    AuthService,
+    AuthGuard,
     InboxService,
     SendService
   ],

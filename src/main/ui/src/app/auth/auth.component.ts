@@ -51,7 +51,7 @@ export class AuthComponent implements OnInit {
         this.login(username, password);
       }, errorMessage => {
         console.log(errorMessage);
-        this.error = errorMessage;
+        this.error = errorMessage.error.message;
       });
     }
     form.reset();

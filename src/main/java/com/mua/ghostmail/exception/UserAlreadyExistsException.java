@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class UserAlreadyExistsException extends RuntimeException {
     public UserAlreadyExistsException(){
-        super("EMAIL_EXISTS");
+
+        super("Podany adres jest już w użyciu");
     }
 }

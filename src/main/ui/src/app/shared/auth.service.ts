@@ -9,8 +9,10 @@ import {TokenStorageService} from "./token-storage.service";
 export class AuthService {
 
   user = new BehaviorSubject<User>(null);
+  logged_in = false;
   user_data = this.user.asObservable();
   httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
+  errorMessage : String;
 
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) {}
 
@@ -22,11 +24,7 @@ export class AuthService {
         address: email+"@ghost.com",
         password: password,
         expireTime: time
-      }, {observe: "response"},).pipe(
-        catchError(this.handleError), tap(response => {
-        console.log(response);
-        })
-    );
+      }, {observe: "response"},);
   }
 
 
@@ -48,6 +46,7 @@ export class AuthService {
             headers.get('endDate'),
             expirationDate));
           this.tokenStorage.saveToken(response.headers.get('Authorization').substring(7));
+          this.logged_in = true;
         })
     );
   }
@@ -55,23 +54,23 @@ export class AuthService {
   private handleAuth(auth: String, address: String, startDate: String, endDate: String, expirationDate: Date) {
     const user = new User(auth, address, startDate, endDate, expirationDate);
     this.user.next(user);
-
     return user;
   }
 
   private handleError(errorResp: HttpErrorResponse) {
 
-    let errorMessage = errorResp.error.message;
+    this.errorMessage = errorResp.message;
 
-    switch(errorMessage) {
+    switch(this.errorMessage) {
       case 'EMAIL_EXISTS':
-        errorMessage = "Ten adres email jest już zajęty.";
+        console.log("eluwina");
+        this.errorMessage = "Ten adres email jest już zajęty.";
         break;
       case 'ERROR_AUTH':
-        errorMessage = "Niepoprawny email lub hasło";
+        this.errorMessage = "Niepoprawny email lub hasło";
         break;
     }
-    return throwError(errorMessage);
+    return throwError(this.errorMessage);
   }
 
   getToken() {
@@ -80,6 +79,7 @@ export class AuthService {
 
   logout() {
     let url = "http://localhost:8080/logout";
+    this.logged_in = false;
     return this.http.post<any>(url, null);
   }
 
@@ -106,5 +106,14 @@ export class AuthService {
     user.setEndDateWithDate(newdate);
     this.user.next(user);
     this.tokenStorage.saveUser(user);
+  }
+
+  isAuthenticated(){
+    const promise = new Promise(
+      (resolve, reject) => {
+        resolve(this.logged_in);
+      }
+    )
+    return promise;
   }
 }

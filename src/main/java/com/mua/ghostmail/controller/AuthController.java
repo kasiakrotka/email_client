@@ -6,10 +6,12 @@ import com.mua.ghostmail.exception.UserAlreadyExistsException;
 import com.mua.ghostmail.model.RegisterForm;
 import com.mua.ghostmail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -99,18 +101,5 @@ public class AuthController {
 
 
         return calendar.getTime();
-    }
-
-    public Map<String, String> response(String email, String end_date) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("address", email);
-        map.put("end_date", end_date);
-        return map;
-    }
-
-    public Map<String, String> error(String message) {
-        HashMap<String,String> map = new HashMap<>();
-        map.put("error", message);
-        return map;
     }
 }
