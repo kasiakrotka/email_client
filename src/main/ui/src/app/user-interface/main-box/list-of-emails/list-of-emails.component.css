@@ -5,6 +5,18 @@
   overflow-y: scroll;
 }
 
+.reload-button{
+  color: #4f4f4f;
+  margin: 5px 10px;
+  width: 1em;
+  height: 1em;
+}
+
+.reload-button:hover{
+  cursor: pointer;
+  color: #df54df;
+}
+
 .row-content {
   width: 100%;
   overflow: hidden;

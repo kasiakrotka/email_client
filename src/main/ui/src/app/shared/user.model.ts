@@ -1,5 +1,3 @@
-
-
 export class User {
 
   address: String;
@@ -14,14 +12,14 @@ export class User {
     this.setStartDate(startDate);
     this.setEndDate(endDate);
     this.expirationDate = expirationDate;
-}
-
-  setCharAt(str,index,chr) {
-    if(index > str.length-1) return str;
-    return str.substring(0,index) + chr + str.substring(index+1);
   }
 
-public setEndDate(timestamp: String){
+  setCharAt(str, index, chr) {
+    if (index > str.length - 1) return str;
+    return str.substring(0, index) + chr + str.substring(index + 1);
+  }
+
+  public setEndDate(timestamp: String) {
 
     let dateString = timestamp.toString();
     dateString = this.setCharAt(dateString, 10, 'T');
@@ -29,28 +27,39 @@ public setEndDate(timestamp: String){
     this.endDate = newDate;
     //"yyyy-MM-dd hh:mm:ss");
     // 0123456789012345678
-}
+  }
 
 
-public setStartDate(timestamp: String) {
-  let dateString = timestamp.toString();
-  dateString = this.setCharAt(dateString, 10, 'T');
-  let newDate = new Date(dateString);
-  this.startDate = newDate;
-}
+  public setStartDate(timestamp: String) {
+    let dateString = timestamp.toString();
+    dateString = this.setCharAt(dateString, 10, 'T');
+    let newDate = new Date(dateString);
+    this.startDate = newDate;
+  }
 
-public getLeftTime(){
-    console.log("Current date: "+new Date());
-    console.log("Expire date: "+ this.endDate);
-  var time = (this.endDate.getTime() - new Date().getTime())/1000;
-  return time;
-}
-public getAddress() {
-  return this.address;
-}
-public setAddress(address: String) {
-  this.address = address;
-}
+  public getLeftTime() {
+    console.log("Current date: " + new Date());
+    console.log("Expire date: " + this.endDate);
+    var time = (this.endDate.getTime() - new Date().getTime()) / 1000;
+    return time;
+  }
+
+  public getToken() {
+    let time = this.getLeftTime()
+    if (time > 0 && this.Authorization != null) {
+      return this.Authorization;
+    } else {
+      return null;
+    }
+  }
+
+  public getAddress() {
+    return this.address;
+  }
+
+  public setAddress(address: String) {
+    this.address = address;
+  }
 
   setEndDateWithDate(newdate: Date) {
     this.endDate = newdate;

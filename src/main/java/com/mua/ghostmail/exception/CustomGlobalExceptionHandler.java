@@ -20,6 +20,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(CantConnectToPopServerException.class)
+    public ResponseEntity<?> cantConnectToPopServerException(CantConnectToPopServerException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), "POP_SERVER", request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> globalExceptionHandler(Exception ex, WebRequest request) {

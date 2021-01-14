@@ -25,6 +25,7 @@ import {DataDialogComponent} from "./user-interface/data-dialog/data-dialog.comp
 import {InfoDialogComponent} from "./user-interface/info-dialog/info-dialog.component";
 import {AuthService} from "./shared/auth.service";
 import {AuthGuard} from "./auth-guard.service";
+import {UIGuard} from "./ui-guard.service";
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +51,7 @@ import {AuthGuard} from "./auth-guard.service";
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     AuthService,
     AuthGuard,
+    UIGuard,
     InboxService,
     SendService
   ],

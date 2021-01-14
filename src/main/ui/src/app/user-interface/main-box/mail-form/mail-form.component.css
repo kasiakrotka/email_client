@@ -19,8 +19,13 @@
 
 .close-button{
   margin: 5px 10px;
+  width: 1em;
+  height: 1em;
   position: relative;
-  text-align: right;
+  align-self: flex-end;
+}
+.close-button:hover{
+  cursor: pointer;
 }
 
 .form-control {

@@ -23,7 +23,8 @@ export class ListOfEmailsComponent implements OnInit {
 
   messages: Mail[] = [];
   selectedMessage: Mail = null;
-  startWidth: number;
+  error : string = null;
+  refreshing = false;
   @Input()
   trigger: boolean;
 
@@ -33,7 +34,35 @@ export class ListOfEmailsComponent implements OnInit {
       //this.messages = this.inboxService.getMessages();
       this.inboxService.fetchMessages().subscribe(messages => {
       this.messages = messages;
+    }, errorMessage => {
+        let message = errorMessage.error.message;
+        if(message == 'POP_SERVER'){
+          this.error = "Brak połączenia z serwerem POP";
+        }
+        else
+        {
+          this.error = "Wystąpił nieznany błąd serwera";
+        }
+      });
+  }
+
+  onFetch(){
+    this.inboxService.fetchMessages().subscribe(messages => {
+      this.messages = messages;
+    }, errorMessage => {
+      let message = errorMessage.error.message;
+      if(message == 'POP_SERVER'){
+        this.error = "Brak połączenia z serwerem POP";
+      }
+      else
+      {
+        this.error = "Wystąpił nieznany błąd serwera";
+      }
     });
+    this.refreshing = true;
+    setTimeout(() => {
+      this.refreshing = false;
+    }, 1000)
   }
 
   onSelected(message: Mail): void {

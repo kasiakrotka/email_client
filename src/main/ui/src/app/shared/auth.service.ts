@@ -1,27 +1,28 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject, throwError} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
 import {User} from "./user.model";
 import {TokenStorageService} from "./token-storage.service";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthService {
 
   user = new BehaviorSubject<User>(null);
   logged_in = false;
   user_data = this.user.asObservable();
-  httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
-  errorMessage : String;
+  httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
+  errorMessage: String;
 
-  constructor(private http: HttpClient, private tokenStorage: TokenStorageService) {}
+  constructor(private http: HttpClient, private tokenStorage: TokenStorageService) {
+  }
 
   signup(email: string, password: string, time: number) {
     let url = "http://localhost:8080/register";
 
     return this.http.post<any>(url,
       {
-        address: email+"@ghost.com",
+        address: email + "@ghost.com",
         password: password,
         expireTime: time
       }, {observe: "response"},);
@@ -32,22 +33,22 @@ export class AuthService {
     let url = "http://localhost:8080/login";
     return this.http.post<any>(url,
       {
-        address: email+"@ghost.com",
+        address: email + "@ghost.com",
         password: password
       }, {observe: 'response'}).pipe(
-        catchError(this.handleError) ,
-        tap(response => {
-          let headers = response.headers;
-          const expirationDate = new Date (new Date().getTime() + headers.get('expires'));
-          this.tokenStorage.saveUser(this.handleAuth(
-            headers.get('Authorization'),
-            headers.get('address'),
-            headers.get('startDate'),
-            headers.get('endDate'),
-            expirationDate));
-          this.tokenStorage.saveToken(response.headers.get('Authorization').substring(7));
-          this.logged_in = true;
-        })
+      catchError(this.handleError),
+      tap(response => {
+        let headers = response.headers;
+        const expirationDate = new Date(new Date().getTime() + headers.get('expires'));
+        this.tokenStorage.saveUser(this.handleAuth(
+          headers.get('Authorization'),
+          headers.get('address'),
+          headers.get('startDate'),
+          headers.get('endDate'),
+          expirationDate));
+        this.tokenStorage.saveToken(response.headers.get('Authorization').substring(7));
+        this.logged_in = true;
+      })
     );
   }
 
@@ -61,7 +62,7 @@ export class AuthService {
 
     this.errorMessage = errorResp.message;
 
-    switch(this.errorMessage) {
+    switch (this.errorMessage) {
       case 'EMAIL_EXISTS':
         console.log("eluwina");
         this.errorMessage = "Ten adres email jest już zajęty.";
@@ -79,7 +80,10 @@ export class AuthService {
 
   logout() {
     let url = "http://localhost:8080/logout";
+    this.user = null;
+    this.user.next(null);
     this.logged_in = false;
+    this.tokenStorage.signOut();
     return this.http.post<any>(url, null);
   }
 
@@ -91,8 +95,8 @@ export class AuthService {
   addTimeToAccount(user: User, hours) {
 
     let url = "http://localhost:8080/addtime";
-    return this.http.post<any>(url, hours, {observe:'response'}).pipe(
-      catchError(this.handleError) ,
+    return this.http.post<any>(url, hours, {observe: 'response'}).pipe(
+      catchError(this.handleError),
       tap(response => {
         let newdate: Date;
         newdate = new Date(response.body);
@@ -108,10 +112,22 @@ export class AuthService {
     this.tokenStorage.saveUser(user);
   }
 
-  isAuthenticated(){
+  autoLogin() {
+    const loadedUser: User = this.tokenStorage.getUser();
+    if (loadedUser == null) {
+      return;
+    } else {
+      console.log(loadedUser);
+      if (loadedUser.getToken() != null) {
+        this.user.next(loadedUser);
+      }
+    }
+  }
+
+  isAuthenticated() {
     const promise = new Promise(
       (resolve, reject) => {
-        resolve(this.logged_in);
+        resolve(this.user_data != null);
       }
     )
     return promise;

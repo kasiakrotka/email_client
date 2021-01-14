@@ -3,6 +3,8 @@ package com.mua.ghostmail.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mua.ghostmail.entity.Mailbox;
+import com.mua.ghostmail.exception.CantConnectToPopServerException;
+import com.mua.ghostmail.exception.UserAlreadyExistsException;
 import com.mua.ghostmail.model.MessageForm;
 import com.mua.ghostmail.model.MessageModel;
 import com.mua.ghostmail.service.POPService;
@@ -50,12 +52,12 @@ public class MailController {
                     return ResponseEntity.ok().body(json);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
+                    throw new CantConnectToPopServerException();
                 }
             } else
-                System.out.println("There was an error while fetching messages");
+                throw new CantConnectToPopServerException();
         }
-
-        return ResponseEntity.badRequest().build();
+        throw new CantConnectToPopServerException();
     }
 
     @PostMapping("/sendmail")

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "./user.model";
 
-const TOKEN_KEY =  "TOKEN_KEY";
+const TOKEN_KEY = "TOKEN_KEY";
 const USER_KEY = "USER_KEY";
 
 @Injectable({
@@ -10,29 +10,46 @@ const USER_KEY = "USER_KEY";
 export class TokenStorageService {
 
   constructor() {
-    sessionStorage.clear();
+    //localStorage.clear();
   }
 
   signOut() {
-    sessionStorage.clear();
+    localStorage.clear();
   }
 
   public saveToken(token) {
-    sessionStorage.removeItem(TOKEN_KEY);
-    sessionStorage.setItem(TOKEN_KEY, token);
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.setItem(TOKEN_KEY, token);
   }
 
   public getToken() {
-    return sessionStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY);
   }
 
   public saveUser(user: User) {
-    sessionStorage.removeItem(USER_KEY);
-    sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    localStorage.removeItem(USER_KEY);
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   public getUser() {
-    return JSON.parse(sessionStorage.getItem(USER_KEY));
-  }
+    let parsedObject: {
+      address: String;
+      Authorization: String;
+      endDate: String;
+      startDate: String;
+      expirationDate: string;
+    } = JSON.parse(localStorage.getItem(USER_KEY));
 
+    if (parsedObject != null) {
+      let date = new Date(parsedObject.expirationDate);
+      const loadedUser = new User(
+        parsedObject.Authorization,
+        parsedObject.address,
+        parsedObject.startDate,
+        parsedObject.endDate,
+        date);
+      return loadedUser;
+    }
+    return null;
+  }
 }

@@ -4,6 +4,7 @@ import { Mail } from './user-interface/shared/mail.model';
 import { SendService } from './user-interface/shared/send.service';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "./shared/auth.service";
+import construct = Reflect.construct;
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent {
   constructor(private authService: AuthService, private http: HttpClient, private inboxService: InboxService, private sendService: SendService) {
 
   }
-
   ngOnInit(): void {
+   this.authService.autoLogin();
   }
 }
